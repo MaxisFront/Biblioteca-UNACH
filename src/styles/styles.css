@@ -1,4 +1,15 @@
-*{
+:root {
+    --primary-color: #2C5F7E;
+    --secondary-color: #F7F3EE;
+    --bg-white: #FFFFFF;
+    --text-black: #1C1917;
+    --text-light: #FFFFFF;
+    --danger-color:#E7000B;
+    --danger-light:#FFE2E2;
+
+}
+
+* {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
