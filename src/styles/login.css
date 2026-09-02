@@ -2,7 +2,7 @@ input,
 button {
     border: 0;
     border: 0.1rem solid #f0ece7;
-    border-radius: 6px;
+    border-radius: 0.65rem;
     padding: 0.23rem auto;
 }
 
@@ -45,7 +45,7 @@ button {
 
 #email,
 #contraseña {
-    padding: 0.2rem;
+    padding: 0.5rem;
     outline: none;
     transition-duration: 0.1s;
 }
@@ -63,7 +63,7 @@ button {
 
 .form__button--send {
     margin-top: 0.5rem;
-    padding: 0.5rem;
+    padding: 0.65rem;
     color: var(--text-light);
     background-color: var(--primary-color);
     font-weight: 500;
@@ -72,11 +72,12 @@ button {
 
 .form__button--send:hover {
     transform: scale(1.015);
+    background-color: #366f93;
 }
 
 .form__button--send:active {
-    background-color: #254f69;
     transform: scale(0.995);
+    background-color: #254f69;
 }
 
 .form__container label {
