@@ -1,7 +1,3 @@
-.main__image{
-    display: none;
-}
-
 .main__form {
     display: grid;
     place-content: center;
@@ -55,8 +51,6 @@
         position: unset;
         height: 55px;
     }
-
-
 
     .main__text {
         display: block;
