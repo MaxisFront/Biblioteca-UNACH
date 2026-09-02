@@ -1,0 +1,34 @@
+@media (min-width:780px) {
+    .main {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .main__image {
+        background-image: url('/src/assets/images/libreria-unach-1.jpg');
+        height: 100vh;
+        background-size: 100%;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-color: var(--overlay-color);
+        background-blend-mode: overlay;
+    }
+
+    .main__brand {
+        position: relative;
+    }
+
+    .main__icon {
+        padding-block: 1em;
+        padding-inline: .5em;
+        display: flex;
+        align-items: center;
+        gap: 1em;
+        color: var(--text-light);
+    }
+
+    .main__brand-img {
+        height: 55px;
+    }
+}
