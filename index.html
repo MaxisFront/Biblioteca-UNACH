@@ -14,17 +14,28 @@
         <section class="main__image">
             <div class="main__description">
                 <div class="main__brand">
-                    <a class="main__icon" href=""><img class="main__brand-img" src="./src/assets/images/UNACH_logo.png" alt="UNACH logo">
-                        <span class="main__brand-text">Biblioteca UNACH</span>
+                    <a class="main__icon" href="#">
+                        <picture class="main__brand-picture">
+                            <source media="(max-width: 780px)" srcset="./src/assets/images/UNACHv2.png">
+                            <img class="main__brand-img" src="./src/assets/images/UNACH_edu_bco.png" alt="UNACH logo">
+                        </picture>
                     </a>
                 </div>
-                <h1 class="main__title">Bienvenido a la biblioteca</h1>
-                <p class="main__summary">Libros de todos las categorias y de todos los autores</p>
+                <h1 class="main__title main__text">Bienvenido a la biblioteca</h1>
+                <p class="main__summary main__text">Libros de todos las categorias y de todos los autores</p>
             </div>
         </section>
 
         <section class="main__form">
-
+                <div class="form__texts">
+                    <h2>Bienvenido!</h2>
+                </div>
+                <form  class="form__container" action="">
+                    <label for="email">Correo Electronico</label>
+                    <input type="email" id="email">
+                    <label for="contraseña">Contraseña</label>
+                    <input type="password" id="contraseña">
+                </form>
         </section>
     </main>
 </body>

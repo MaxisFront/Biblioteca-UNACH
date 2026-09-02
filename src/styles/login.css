@@ -1,12 +1,38 @@
+.main__icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+}
+
+.main__brand-img {
+    height: 80px;
+}
+
+.main__form {
+    display: grid;
+    place-content: center;
+}
+
+.main__text {
+    display: none;
+}
+
+.form__container {
+    display: flex;
+    flex-direction: column;
+}
+
 @media (min-width:780px) {
     .main {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
     }
 
-    .main__description{
+    .main__description {
         color: var(--text-light);
     }
+
     .main__image {
         background-image: url('/src/assets/images/libreria-unach-1.jpg');
         height: 100vh;
@@ -31,7 +57,14 @@
         color: var(--text-light);
     }
 
+
     .main__brand-img {
         height: 55px;
+    }
+
+
+
+    .main__text {
+        display: block;
     }
 }
