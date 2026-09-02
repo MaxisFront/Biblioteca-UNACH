@@ -27,6 +27,10 @@
     gap: 0.4rem;
 }
 
+.main__indicator {
+    display: none;
+}
+
 .main__brand-title,
 .form__title {
     text-align: center;
@@ -64,8 +68,8 @@
         flex-direction: column;
         margin-top: auto;
         margin-bottom: auto;
-        gap: 2rem;
-        }
+        gap: 2rem;    
+    }
 
     .main__image {
         display: block;
@@ -91,5 +95,15 @@
 
     .main__text {
         display: block;
+    }
+
+    .main__indicator {
+        display: flex;
+        gap: 3rem;
+        margin-bottom: 3.5rem;;
+    }
+
+    .indicator__counter {
+
     }
 }
