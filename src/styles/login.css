@@ -1,9 +1,18 @@
+input, 
+button {
+    border: 0;
+    border: 0.1rem solid #f0ece7;
+    border-radius: 6px;
+    padding: 0.23rem auto;
+}
+
 .main {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 2rem;
     background-color: var(--secondary-color);
 }
 
@@ -33,6 +42,42 @@
     font-family: "Poppins";
 }
 
+#email,
+#contraseña {
+    padding: 0.2rem;
+    outline: none;
+    transition-duration: 0.1s;
+}
+
+#email:focus,
+#contraseña:focus {
+    border: 0.1rem solid #d0cac3;
+    background-color: #f7f1f1;
+}
+
+#email:active,
+#contraseña:active {
+    transform: scale(0.98)
+}
+
+.form__button--send {
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+    color: var(--text-light);
+    background-color: var(--primary-color);
+    font-weight: 500;
+    transition-duration: 0.1s;
+}
+
+.form__button--send:hover {
+    transform: scale(1.015);
+}
+
+.form__button--send:active {
+    background-color: #254f69;
+    transform: scale(0.995);
+}
+
 .form__container label {
     font-weight: 700;
 }
@@ -48,6 +93,7 @@
 @media (min-width:780px) {
     .main {
         display: grid;
+        gap: 0;
         grid-template-columns: repeat(2, 1fr);
     }
 
