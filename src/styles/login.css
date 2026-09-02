@@ -124,9 +124,8 @@ button {
     .main__text-container {
         display: flex;
         flex-direction: column;
-        margin-top: auto;
-        margin-bottom: auto;
-        gap: 2rem;    
+        gap: 2rem;
+        margin: auto 3rem;
     }
 
     .main__image {
