@@ -22,6 +22,7 @@ button {
     gap: 1.5rem;
 }
 
+
 .main__text {
     display: none;
 }
@@ -146,7 +147,7 @@ button {
 
     .main__brand-img {
         position: unset;
-        height: 55px;
+        height: 100px;
     }
 
     .main__text {
