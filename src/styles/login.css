@@ -4,18 +4,13 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 4rem;
+    background-color: var(--secondary-color);
 }
 
 .main__brand {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
-}
-
-.main__form {
-    display: grid;
-    background-color: --secondary-color;
 }
 
 .main__text {
@@ -34,6 +29,14 @@
     gap: 0.4rem;
 }
 
+.form__title {
+    font-family: "Poppins";
+}
+
+.form__container label {
+    font-weight: 700;
+}
+
 .main__indicator {
     display: none;
 }
@@ -49,8 +52,9 @@
     }
 
     .main__form {
-        place-content: center;
+        display: grid;
         height: 100vh;
+        place-content: center;
     }
     
     .main__description {
