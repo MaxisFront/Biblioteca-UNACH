@@ -1,7 +1,12 @@
+.main {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
 .main__form {
     display: grid;
-    place-content: center;
-    height: 100vh;
 }
 
 .main__text {
@@ -17,6 +22,11 @@
     .main {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
+    }
+
+    .main__form {
+        place-content: center;
+        height: 100vh;
     }
 
     .main__description {
