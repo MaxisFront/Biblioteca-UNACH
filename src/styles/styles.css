@@ -4,8 +4,9 @@
     --bg-white: #FFFFFF;
     --text-black: #1C1917;
     --text-light: #FFFFFF;
-    --danger-color:#E7000B;
-    --danger-light:#FFE2E2;
+    --danger-color: #E7000B;
+    --danger-light: #FFE2E2;
+    --overlay-color: rgba(0, 0, 0, 0.776);
 
 }
 
@@ -13,4 +14,8 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+}
+
+a{
+    text-decoration: none;
 }
