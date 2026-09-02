@@ -4,6 +4,9 @@
         grid-template-columns: repeat(2, 1fr);
     }
 
+    .main__description{
+        color: var(--text-light);
+    }
     .main__image {
         background-image: url('/src/assets/images/libreria-unach-1.jpg');
         height: 100vh;
