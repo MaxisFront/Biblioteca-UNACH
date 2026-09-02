@@ -99,6 +99,10 @@
 
     .main__indicator {
         display: flex;
+    }
+
+    .indicator {
+        display: flex;
         gap: 3rem;
         margin-bottom: 3.5rem;;
     }
