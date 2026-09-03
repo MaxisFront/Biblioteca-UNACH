@@ -23,6 +23,12 @@ button {
 }
 
 
+.main__brand-img {
+    position: unset;
+    max-height: 120px;
+}
+
+
 .main__text {
     display: none;
 }
@@ -36,11 +42,17 @@ button {
 .form__container {
     display: flex;
     flex-direction: column;
-    gap: 0.4rem;
+    gap: 1.4rem;
 }
 
 .form__title {
     font-family: "Poppins";
+}
+
+.form__container--email,
+.form__container--password {
+    display: flex;
+    flex-direction: column;
 }
 
 #email,
@@ -62,7 +74,6 @@ button {
 }
 
 .form__button--send {
-    margin-top: 0.5rem;
     padding: 0.65rem;
     color: var(--text-light);
     background-color: var(--primary-color);
@@ -146,7 +157,6 @@ button {
     }
 
     .main__brand-img {
-        position: unset;
         max-height: 120px;
         margin-top: 1rem;
     }
