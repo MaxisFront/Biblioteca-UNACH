@@ -1,4 +1,4 @@
-input, 
+input,
 button {
     border: 0;
     border: 0.1rem solid #f0ece7;
@@ -55,6 +55,10 @@ button {
     flex-direction: column;
 }
 
+.form__label-text {
+    margin-bottom: 0.75rem;
+}
+
 #email,
 #contraseña {
     padding: 0.5rem;
@@ -99,7 +103,7 @@ button {
     display: none;
 }
 
-.main__brand-title{
+.main__brand-title {
     text-align: center;
 }
 
@@ -115,7 +119,7 @@ button {
         height: 100vh;
         place-content: center;
     }
-    
+
     .main__description {
         min-height: 100vh;
         display: flex;
@@ -124,7 +128,7 @@ button {
         text-align: center;
         color: var(--text-light);
     }
- 
+
     .main__brand {
         display: flex;
         flex-direction: row;
