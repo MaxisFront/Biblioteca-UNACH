@@ -1,16 +1,45 @@
 .main__dashboard{
     background-color: var(--secondary-color);
     height: 100vh;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
 }
 .dashboard__header{
     padding-inline: 1em;
     padding-block: 1em;
 }
 .dashboard__description{
-    color: #78716C;
+    color: var(--overlay-color);
     font-size: smaller;
 }
+
 .dashboard__statics{
     display: flex;
     justify-content: space-around;
 }
+
+.dashboard__card{
+    background-color: var(--text-light);
+    min-width: 13rem;
+    border: 1px solid var(--overlay-color);
+    border-radius: 1em;
+    padding: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.card__title{
+    color: var(--overlay-color);
+    font-size: small;
+    font-weight: 500;
+}
+
+.card__number{
+    font-size: xx-large;
+    font-weight: 500;
+    color: var(--danger-color);
+}
+
+
