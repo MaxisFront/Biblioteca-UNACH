@@ -1,25 +1,27 @@
-.main__dashboard{
+.main__dashboard {
     background-color: var(--secondary-color);
     height: 100vh;
     display: flex;
     flex-direction: column;
     gap: 1em;
 }
-.dashboard__header{
+
+.dashboard__header {
     padding-inline: 1em;
     padding-block: 1em;
 }
-.dashboard__description{
+
+.dashboard__description {
     color: var(--overlay-color);
     font-size: smaller;
 }
 
-.dashboard__statics{
+.dashboard__statics {
     display: flex;
     justify-content: space-around;
 }
 
-.dashboard__card{
+.dashboard__card {
     background-color: var(--text-light);
     min-width: 13rem;
     border: 1px solid #d8d8d8;
@@ -30,16 +32,40 @@
     gap: 1rem;
 }
 
-.card__title{
+.card__title {
     color: var(--overlay-color);
     font-size: small;
     font-weight: 500;
 }
 
-.card__number{
+.card__number {
     font-size: xx-large;
     font-weight: 500;
     color: var(--danger-color);
 }
 
+.dashboard__table {
+    margin: 1em;
+}
 
+.table__container {
+
+    background-color: var(--text-light);
+    padding: 1.3rem;
+    border-radius: .5rem;
+}
+
+.table {
+    position: relative;
+    max-height: 20em;
+    overflow-y: auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.table__header{
+    position: sticky;
+    background-color: var(--text-light);
+    top: 0;
+    z-index: 10;
+}
