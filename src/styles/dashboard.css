@@ -22,7 +22,7 @@
 .dashboard__card{
     background-color: var(--text-light);
     min-width: 13rem;
-    border: 1px solid var(--overlay-color);
+    border: 1px solid #d8d8d8;
     border-radius: 1em;
     padding: 1.2rem;
     display: flex;
