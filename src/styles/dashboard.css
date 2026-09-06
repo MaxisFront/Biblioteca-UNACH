@@ -2,3 +2,15 @@
     background-color: var(--secondary-color);
     height: 100vh;
 }
+.dashboard__header{
+    padding-inline: 1em;
+    padding-block: 1em;
+}
+.dashboard__description{
+    color: #78716C;
+    font-size: smaller;
+}
+.dashboard__statics{
+    display: flex;
+    justify-content: space-around;
+}
