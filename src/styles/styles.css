@@ -8,7 +8,8 @@
     --text-light: #FFFFFF;
     --danger-color: #E7000B;
     --danger-light: #FFE2E2;
-    --overlay-color:#78716C;
+    --overlay-color: rgba(0, 0, 0, 0.776);
+    --border-color:#78716C;
 
 }
 
