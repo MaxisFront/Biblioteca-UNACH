@@ -60,6 +60,9 @@
     border-radius: .5rem;
 }
 
+.table__title{
+    font-size: medium;
+}
 .table {
     position: relative;
     max-height: 20em;
@@ -70,6 +73,7 @@
 
 .table__header {
     position: sticky;
+    color: var(--overlay-color);
     background-color: var(--text-light);
     top: 0;
     z-index: 10;
