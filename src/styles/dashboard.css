@@ -70,6 +70,12 @@
     position: relative;
     max-height: 20em;
     overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.table__header--row,
+.table__row {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
 }
