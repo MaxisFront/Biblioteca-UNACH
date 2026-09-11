@@ -34,7 +34,7 @@
     gap: 1rem;
     background-color: var(--text-light);
     border: 1px solid #d8d8d8;
-    border-radius: 1em;
+    border-radius: 1.2rem;
 }
 
 .card__title {
@@ -98,9 +98,4 @@
 
 .table__cell--title {
     font-weight: 600;
-}
-
-.table__row--status {
-    color: blue;
-    
 }
