@@ -144,7 +144,7 @@ body {
     background-color: #c3deef;
 }
 
-.status--completed {
+.status--delivered {
     color: #776229;
     background-color: rgb(243, 230, 193);
 }
