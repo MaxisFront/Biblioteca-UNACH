@@ -1,9 +1,9 @@
 .main__dashboard {
-    background-color: var(--secondary-color);
-    height: 100vh;
     display: flex;
     flex-direction: column;
+    height: 100vh;
     gap: 1.5em;
+    background-color: var(--secondary-color);
 }
 
 .dashboard__header {
@@ -27,14 +27,14 @@
 }
 
 .dashboard__card {
-    background-color: var(--text-light);
-    min-width: 13rem;
-    border: 1px solid #d8d8d8;
-    border-radius: 1em;
-    padding: 1.2rem;
     display: flex;
     flex-direction: column;
+    min-width: 13rem;
+    padding: 1.2rem;
     gap: 1rem;
+    background-color: var(--text-light);
+    border: 1px solid #d8d8d8;
+    border-radius: 1em;
 }
 
 .card__title {
@@ -59,11 +59,11 @@
     margin: 1em;
 }
 .table {
+    display: flex;
+    flex-direction: column;
     position: relative;
     max-height: 20em;
     overflow-y: auto;
-    display: flex;
-    flex-direction: column;
 }
 
 .table__container {
@@ -85,10 +85,10 @@
 
 .table__header-row {
     position: sticky;
-    background-color: var(--text-light);
     top: 0;
     z-index: 10;
     padding: 0.7rem 0;
+    background-color: var(--text-light);
 }
 
 .table__cell {
