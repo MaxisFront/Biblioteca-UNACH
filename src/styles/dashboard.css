@@ -28,7 +28,7 @@ body {
 
 .dashboard__statistics {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
 }
 
 .dashboard__card {
@@ -57,7 +57,15 @@ body {
 .card__number {
     font-size: xx-large;
     font-weight: 500;
-    color: var(--danger-color);
+}
+
+.card__number--books,
+.card__number--users {
+    color: #2c5f7e;
+}
+
+.card__number--loans {
+    color: #c8896a;
 }
 
 .dashboard__table {
