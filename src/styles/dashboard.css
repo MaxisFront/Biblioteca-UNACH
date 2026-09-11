@@ -140,16 +140,16 @@ body {
 }
 
 .status--active {
-    color: #013250;
-    background-color: #8fcbf0;
+    color: #2c5f7e;
+    background-color: #c3deef;
 }
 
 .status--completed {
     color: #776229;
-    background-color: #ffedbc;
+    background-color: rgb(243, 230, 193);
 }
 
 .status--expired {
-    color: #820004;
-    background-color: #ffa9ad;
+    color: #9e2164;
+    background-color: #f1c7de;
 }
