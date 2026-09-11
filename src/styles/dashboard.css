@@ -74,7 +74,7 @@
     grid-template-columns: repeat(4, 1fr);
 }
 
-.table__header {
+.table__header--row {
     position: sticky;
     background-color: var(--text-light);
     top: 0;
@@ -85,4 +85,9 @@
 .table__row {
     padding: 0.7rem 0;
     border-top: 1px solid #d8d8d8;
+}
+
+.table__row--status {
+    color: blue;
+    
 }
