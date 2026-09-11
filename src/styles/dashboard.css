@@ -103,6 +103,14 @@ body {
     grid-template-columns: repeat(4, 1fr);
 }
 
+.table__row {
+    transition-duration: 0.2s;
+}
+
+.table__row:hover {
+    transform: scale(1.005);
+    box-shadow: 0 0.1rem 0.3rem 0 #ABABAB;
+}
 
 .table__header-row {
     position: sticky;
