@@ -121,6 +121,7 @@ body {
     border: 1px solid var(--text-light);
     border-radius: 12px;
     text-align: center;
+    font-weight: 500;
 }
 
 .status--active {
