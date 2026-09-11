@@ -12,7 +12,7 @@
     margin-left: 1rem;
 }
 
-.dashboard__title{
+.dashboard__title {
     margin-top: 1rem
 }
 
@@ -58,6 +58,7 @@
 .dashboard__table {
     margin: 1em;
 }
+
 .table {
     display: flex;
     flex-direction: column;
@@ -98,4 +99,28 @@
 
 .table__cell--title {
     font-weight: 600;
+}
+
+.status {
+    display: inline-block;
+    width: 80%;
+    max-width: 8rem;
+    border: 1px solid var(--text-light);
+    border-radius: 12px;
+    text-align: center;
+}
+
+.status--active {
+    color: #013250;
+    background-color: #8fcbf0;
+}
+
+.status--completed {
+    color: #776229;
+    background-color: #ffedbc;
+}
+
+.status--expired {
+    color: #820004;
+    background-color: #ffa9ad;
 }
