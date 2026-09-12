@@ -1,9 +1,14 @@
+html, 
+body {
+    overflow: hidden;
+}
+
 .main__dashboard {
-    background-color: var(--secondary-color);
-    height: 100vh;
     display: flex;
     flex-direction: column;
-    gap: 1.5em;
+    height: 100vh;
+    gap: 1em;
+    background-color: var(--secondary-color);
 }
 
 .dashboard__header {
@@ -12,7 +17,23 @@
     margin-left: 1rem;
 }
 
-.dashboard__title{
+.dashboard__card {
+    display: flex;
+    flex-direction: column;
+    min-width: 13rem;
+    padding: 1.2rem;
+    gap: 1rem;
+    border: 1px solid #d8d8d8;
+    border-radius: 1.2rem;
+    background-color: var(--text-light);
+    transition-duration: 0.2s;
+}
+
+.dashboard__card:hover {
+    transform: scale(1.04);
+}
+
+.dashboard__title {
     margin-top: 1rem
 }
 
@@ -21,20 +42,9 @@
     font-size: smaller;
 }
 
-.dashboard__statics {
+.dashboard__statistics {
     display: flex;
-    justify-content: space-around;
-}
-
-.dashboard__card {
-    background-color: var(--text-light);
-    min-width: 13rem;
-    border: 1px solid #d8d8d8;
-    border-radius: 1em;
-    padding: 1.2rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+    justify-content: space-evenly;
 }
 
 .card__title {
@@ -52,41 +62,98 @@
 .card__number {
     font-size: xx-large;
     font-weight: 500;
-    color: var(--danger-color);
+}
+
+.card__number--books,
+.card__number--users {
+    color: #2c5f7e;
+}
+
+.card__number--loans {
+    color: #c8896a;
 }
 
 .dashboard__table {
     margin: 1em;
 }
 
-.table__container {
-
-    background-color: var(--text-light);
-    padding: 1.3rem;
-    border-radius: .5rem;
-}
-
 .table__title{
     font-size: medium;
 }
 .table {
+    display: flex;
+    flex-direction: column;
     position: relative;
     max-height: 20em;
     overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.table__container {
+    padding: 1.2rem;
+    border-radius: 1.2rem;
+    background-color: var(--text-light);
+}
+
+.table__title {
+    margin: 0.65rem 0;
+    font-weight: 650;
+}
+
+.table__header-row,
+.table__row {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
 }
 
-.table__header {
+.table__row {
+    transition-duration: 0.2s;
+}
+
+.table__row:hover {
+    transform: scale(1.005);
+    box-shadow: 0 0.1rem 0.3rem 0 #ABABAB;
+}
+
+.table__header-row {
     position: sticky;
-    color: var(--overlay-color);
     background-color: var(--text-light);
     top: 0;
     z-index: 10;
     padding: 0.7rem 0;
+    background-color: var(--text-light);
 }
 
-.table__row {
-    padding: 0.7rem 0;
+.table__cell {
+    padding: 0.7rem 0.3rem;
     border-top: 1px solid #d8d8d8;
+}
+
+.table__cell--title {
+    font-weight: 600;
+}
+
+.status {
+    display: inline-block;
+    width: 90%;
+    max-width: 8rem;
+    border: 1px solid var(--text-light);
+    border-radius: 12px;
+    text-align: center;
+    font-weight: 500;
+}
+
+.status--active {
+    color: #2c5f7e;
+    background-color: #c3deef;
+}
+
+.status--delivered {
+    color: #776229;
+    background-color: rgb(243, 230, 193);
+}
+
+.status--expired {
+    color: #9e2164;
+    background-color: #f1c7de;
 }
