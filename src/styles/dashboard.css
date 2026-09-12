@@ -1,8 +1,3 @@
-html, 
-body {
-    overflow: hidden;
-}
-
 .main__dashboard {
     display: flex;
     flex-direction: column;
