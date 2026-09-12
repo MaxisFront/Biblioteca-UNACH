@@ -38,7 +38,7 @@ body {
 }
 
 .dashboard__description {
-    color: var(--border-color);
+    color: var(--text-gray);
     font-size: smaller;
 }
 
@@ -48,13 +48,13 @@ body {
 }
 
 .card__title {
-    color: var(--border-color);
+    color: var(--text-gray);
     font-size: 0.9rem;
     font-weight: 500;
 }
 
 .card__indicator {
-    color: var(--border-color);
+    color: var(--text-gray);
     font-size: 0.8rem;
     font-weight: 400;
 }
@@ -66,11 +66,11 @@ body {
 
 .card__number--books,
 .card__number--users {
-    color: #2c5f7e;
+    color: var(--primary-color);
 }
 
 .card__number--loans {
-    color: #c8896a;
+    color: var(--text-orange);
 }
 
 .dashboard__table {
@@ -109,7 +109,7 @@ body {
 
 .table__row:hover {
     transform: scale(1.005);
-    box-shadow: 0 0.1rem 0.3rem 0 #ABABAB;
+    box-shadow: 0 0.01rem 0.2rem 0 var(--text-gray);
 }
 
 .table__header-row {
@@ -122,7 +122,7 @@ body {
 
 .table__cell {
     padding: 0.7rem 0.3rem;
-    border-top: 1px solid #d8d8d8;
+    border-top: 1px solid var(--border-gray-color);
 }
 
 .table__cell--title {
@@ -140,16 +140,16 @@ body {
 }
 
 .status--active {
-    color: #2c5f7e;
-    background-color: #c3deef;
+    color: var(--active-color);
+    background-color: var(--active-light);
 }
 
 .status--delivered {
-    color: #776229;
-    background-color: rgb(243, 230, 193);
+    color: var(--delivered-color);
+    background-color: var(--delivered-light);
 }
 
 .status--expired {
-    color: #9e2164;
-    background-color: #f1c7de;
+    color: var(--expired-color);
+    background-color: var(--expired-light);
 }
