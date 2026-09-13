@@ -4,14 +4,16 @@ input {
     background-color: var(--secondary-color);
     border: 1px solid var(--border-gray-color);
     border-radius: 1rem;
+    transition-duration: 0.25s;
 }
 
 input:focus {
-    background-color: red;
+    background-color: var(--infill-gray-color);
+    outline: none;
 }
 
 input:active {
-    background-color: blue;
+    transform: scale(1.025);
 }
 
 .main__books {
@@ -35,6 +37,18 @@ input:active {
     border-radius: 0.8rem;
     color: var(--text-light);
     font-weight: 500;
+    transition-duration: 0.2s;
+}
+
+.button__add:hover {
+    background-color: var(--active-medium);
+    transform: scale(1.025);
+}
+
+.button__add:active {
+    background-color: var(--active-color);
+    transform: scale(0.96);
+
 }
 
 .search-bar {    
