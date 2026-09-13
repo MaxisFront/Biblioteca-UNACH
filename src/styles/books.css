@@ -32,7 +32,7 @@
 .table__header-row,
 .table__row {
     display: grid;
-    grid-template-columns: repeat(3, 1.5fr) repeat(3, 1fr);
+    grid-template-columns: repeat(3, 1.3fr) repeat(3, 1fr);
 }
 
 .table__header-row {
@@ -43,6 +43,7 @@
 }
 
 .table__header-cell {
+    padding: 0 0.3rem;
     color: var(--text-gray);
     font-weight: 500;
 }
@@ -50,7 +51,7 @@
 
 .table__row {
     position: relative;
-    padding: 1.3rem;
+    padding: 1.3rem 1.1rem;
     background-color: var(--text-light);
 }
 
