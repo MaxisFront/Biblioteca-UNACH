@@ -2,14 +2,18 @@
     display: flex;
     flex-direction: column;
     height: 100vh;
-    padding: 1.8rem 2.5rem;
-    gap: 2.5rem;
+    gap: 2rem;
     background-color: var(--secondary-color);
 }
 
 .header {
     display: flex;
     justify-content: space-between;
+    padding: 1.8rem 2rem;
+}
+
+.search-bar {
+    padding: 0 2.5rem;
 }
 
 .table__container {
@@ -33,13 +37,34 @@
 
 .table__header-row {
     padding: 0.8rem 1.3rem;
-    border: 1px solid var(--border-gray-color);
+    border: 1.2px solid var(--border-gray-color);
     border-top-left-radius: 1rem;
     border-top-right-radius: 1rem;
 }
 
 .table__row {
-    background-color: var(--text-light);
+    position: relative;
     padding: 1.3rem;
-    border: 1px solid var(--border-gray-color);
+    background-color: var(--text-light);
+}
+
+/* Limitar tamaño de los extremos de border-top de cada row */
+.table__row::after {
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 1.5rem;
+    right: 1.5rem;
+    bottom: 0;
+    border-top: 1px solid var(--border-gray-color);
+}
+
+/* Eliminar border-top a la primera row después del table__header-row */
+.table__header-row + .table__row::after {
+    border-top: none;
+}
+
+.table__row:last-child {
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
 }
