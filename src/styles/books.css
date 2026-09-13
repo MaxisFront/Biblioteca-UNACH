@@ -1,0 +1,33 @@
+.main__books {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    padding: 1.8rem 2.5rem;
+    gap: 2.5rem;
+    background-color: var(--secondary-color);
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.table__container {
+    padding: 1.3rem;
+    background-color: var(--text-light);
+}
+
+.table {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    max-height: 47vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.table__header-row,
+.table__row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
