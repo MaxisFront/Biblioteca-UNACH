@@ -42,6 +42,12 @@
     border-top-right-radius: 1rem;
 }
 
+.table__header-cell {
+    color: var(--text-gray);
+    font-weight: 500;
+}
+
+
 .table__row {
     position: relative;
     padding: 1.3rem;
@@ -71,8 +77,34 @@
 
 .table__cell {
     padding: 0 0.4rem;
+    font-weight: 500;
 }
 
-.table__cell--available {
+.table__cell--author,
+.table__cell--year {
+    color: var(--text-gray);
+}
+
+.table__cell--title {
+    font-weight: 600;
+}
+
+.table__cell--genre {
+    display: inline-block;
+    width: 80%;
+    max-height: 1.7rem;
+    max-width: 8rem;
+    border-radius: 12px;
+    text-align: center;
+    font-weight: 500;
+    border: 1px solid var(--text-light);
+    background-color: var(--infill-gray-color);
+}
+
+.disponibility--active {
     color: var(--active-color)
+}
+
+.disponibility--unavailable {
+    color: var(--expired-color)
 }
