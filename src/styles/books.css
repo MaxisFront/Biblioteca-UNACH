@@ -32,7 +32,7 @@
 .table__header-row,
 .table__row {
     display: grid;
-    grid-template-columns: repeat(2, 1.5fr) repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1.5fr) repeat(3, 1fr);
 }
 
 .table__header-row {
@@ -71,4 +71,8 @@
 
 .table__cell {
     padding: 0 0.4rem;
+}
+
+.table__cell--available {
+    color: var(--active-color)
 }
