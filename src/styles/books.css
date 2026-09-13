@@ -99,6 +99,11 @@ input:focus {
     background-color: var(--text-light);
 }
 
+.table__row:hover {
+    transform: scale(1.015);
+    box-shadow: 0 0.5rem 0.8rem 0 var(--text-gray);
+}
+
 /* Limitar tamaño de los extremos de border-top de cada row */
 .table__row::after {
     position: absolute;
