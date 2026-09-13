@@ -7,13 +7,17 @@ input {
     transition-duration: 0.3s;
 }
 
-input:focus {
-    background-color: var(--infill-gray-color);
-    outline: none;
+input:hover {
+    background-color: var(--infill-light-color);
 }
 
 input:active {
     transform: scale(1.015);
+}
+
+input:focus {
+    background-color: var(--infill-gray-color);
+    outline: none;
 }
 
 .main__books {
@@ -64,7 +68,7 @@ input:active {
     display: flex;
     flex-direction: column;
     position: relative;
-    max-height: 50vh;
+    max-height: 70vh;
     overflow-y: auto;
     overflow-x: hidden;
 }
