@@ -2,10 +2,7 @@ class SidebarComponent extends HTMLElement {
 
     constructor() {
         super();
-
-        this.attachShadow({
-            mode: "open"
-        });
+        this.attachShadow({ mode: "open" });
     }
 
     async connectedCallback() {
@@ -13,38 +10,35 @@ class SidebarComponent extends HTMLElement {
     }
 
     async render() {
-
-        const htmlResponse = await fetch(
-            "../components/sidebar.html"
-        );
+        const [htmlResponse, cssResponse] = await Promise.all([
+            fetch("../components/sidebar.html"),
+            fetch("../components/sidebar.css")
+        ]);
 
         const html = await htmlResponse.text();
+        const css = await cssResponse.text();
 
         this.shadowRoot.innerHTML = `
-
+            <style>${css}</style>
             ${html}
         `;
+        
         this.selectorColor();
-
     }
 
     selectorColor() {
-        const menuItems = this.shadowRoot.querySelectorAll(".sidebar-list .list-item");
+        const targetId = this.getAttribute("active-item");
+        if (!targetId) return;
 
-        menuItems.forEach(item => {
-            item.addEventListener("click", () => {
+        const activeItem = this.shadowRoot.querySelector(`[data-id="${targetId}"]`);
+        
+        if (activeItem) {
+            const currentActive = this.shadowRoot.querySelector(".list-item.item--active");
+            if (currentActive) currentActive.classList.remove("item--active");
 
-                const currentActive = this.shadowRoot.querySelector(".list-item.item--active");
-                if (currentActive) {
-                    currentActive.classList.remove("item--active");
-                }
-
-                item.classList.add("item--active");
-            });
-        });
+            activeItem.classList.add("item--active");
+        }
     }
 }
-customElements.define(
-    "mi-sidebar",
-    SidebarComponent
-);
+
+customElements.define("mi-sidebar", SidebarComponent);
