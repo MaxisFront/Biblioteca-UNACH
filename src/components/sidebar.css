@@ -32,7 +32,7 @@ a {
 }
 
 .list-item {
-    padding: 0 .5em;
+    padding: .5em;
 }
 
 .list-item a {
@@ -50,14 +50,13 @@ a {
 }
 
 .logout {
-    margin-top: 41vh;
+    margin-top: 30vh;
 }
 
 .item--active{
     border-radius: .5em;
     background-color: var(--primary-color);
     color: var(--bg-white);
-    padding: .5em;
 }
 
 .item--active img {
