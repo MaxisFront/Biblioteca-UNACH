@@ -1,11 +1,82 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="./src/styles/styles.css">
+    <link rel="stylesheet" href="./src/styles/login.css">
+    <title>Panel de Inicio de Sesión</title>
 </head>
+
 <body>
-    
+    <main class="main">
+        <section class="main__image">
+            <div class="main__description">
+                <div class="main__brand">
+                    <a class="main__icon" href="#">
+                        <picture class="main__brand-picture">
+                            <source media="(max-width: 780px)" srcset="./src/assets/images/UNACHv2.png">
+                            <img class="main__brand-img" src="./src/assets/images/UNACH_edu_bco.png" alt="UNACH logo">
+                        </picture>
+                    </a>
+                </div>
+
+                <div class="main__text-container">
+                    <h1 class="main__title main__text">Sistema de préstamos de libro</h1>
+                    <p class="main__summary main__text">Sistema de gestión de libros, préstamos y usarios.</p>
+                    <p class="main__description-text main__text">Aplicación de biblioteca utilizada por la
+                        administración para la fácil creación de libros, ejemplares, usuarios y asignación de préstamos.
+                        Todo en un solo lugar.</p>
+                </div>
+
+                <div class="main__indicator">
+                    <div class="indicator">
+                        <div class="indicator__counter">
+                            <p class="indicator__value">29</p>
+                            <p class="indicator__type">Usuarios registrados </p>
+                        </div>
+                    </div>
+
+                    <div class="indicator">
+                        <div class="indicator__counter">
+                            <p class="indicator__value">230</p>
+                            <p class="indicator__type">Libros registrados</p>
+                        </div>
+                    </div>
+
+                    <div class="indicator">
+                        <div class="indicator__counter">
+                            <p class="indicator__value">94</p>
+                            <p class="indicator__type">Préstamos</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="main__form">
+            <div class="form">
+                <div class="form__text">
+                    <h2 class="form__title"> Panel de inicio de sesión</h2>
+                    <p class="form__description">Utilice sus credenciales de administrador</p>
+                </div>
+
+                <form class="form__container" action="">
+                    <div class="form__container--email">
+                        <label class="form__label-text form__email" for="email">Correo Electronico</label>
+                        <input class="form__input form__mail" type="email" id="email" placeholder="example@example.com">
+                    </div>
+                    <div class="form__container--password">
+                        <label class="form__label-text container__password" for="contraseña">Contraseña</label>
+                        <input class="form__input form__password" type="password" id="contraseña"
+                            placeholder="***********">
+                    </div>
+                    <button class="form__button--send" type="button">Iniciar Sesión</button>
+                </form>
+            </div>
+        </section>
+    </main>
 </body>
+
 </html>

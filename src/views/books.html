@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles/styles.css">
+    <link rel="stylesheet" href="../styles/books.css">
+    <script type="module" src="../components/sideabar.js"></script>
+
+    <title>Catálogo</title>
+</head>
+
+<body>
+    <main class="main">
+        <div class="app__layout">
+            <nav>
+                <mi-sidebar active-item="libros"></mi-sidebar>
+            </nav>
+
+            <section class="main__books">
+                <header class="header">
+
+                    <div class="header__text">
+                        <h2 class="header__title">Catalógo de libros</h2>
+                        <span class="header__description">100 libros registrados</span>
+                    </div>
+
+                    <div class="header__button">
+                        <button class="button__add"> <span class="button__icon">+</span> Nuevo Libro</button>
+                    </div>
+                </header>
+
+                <div class="search-bar">
+                    <input type="text" placeholder="Buscar por título, autor o género...">
+                </div>
+
+                <div class="books__table">
+                    <div class="table__container">
+                        <div class="table">
+
+                            <div class="table__header-row">
+                                <div class="table__header-cell table__header-cell--title">Libro</div>
+                                <div class="table__header-cell table__header-cell--author">Autor</div>
+                                <div class="table__header-cell table__header-cell--genre">Género</div>
+                                <div class="table__header-cell table__header-cell--year">Año</div>
+                                <div class="table__header-cell table__header-cell--copies">Ejemplares</div>
+                                <div class="table__header-cell table__header-cell--disponibility">Disponibles</div>
+                            </div>
+
+                            <div class="table__row">
+                                <div class="table__cell table__cell--title">El Principito</div>
+                                <div class="table__cell table__cell--author">George Orwell</div>
+                                <div class="table__cell table__cell--genre">Filosofía</div>
+                                <div class="table__cell table__cell--year">1948</div>
+                                <div class="table__cell table__cell--copies">12</div>
+                                <div class="table__cell table__cell--disponibility">
+                                    <span class="disponibility--active">3</span>
+                                </div>
+                            </div>
+
+                            <div class="table__row">
+                                <div class="table__cell table__cell--title">Generation Kill</div>
+                                <div class="table__cell table__cell--author">Jimmy Hendrix</div>
+                                <div class="table__cell table__cell--genre">Filosofía</div>
+                                <div class="table__cell table__cell--year">1948</div>
+                                <div class="table__cell table__cell--copies">9</div>
+                                <div class="table__cell table__cell--disponibility">
+                                    <span class="disponibility--unavailable">0</span>
+                                </div>
+                            </div>
+
+                            <div class="table__row">
+                                <div class="table__cell table__cell--title">Apocalypse Now</div>
+                                <div class="table__cell table__cell--author">Zzzz huh</div>
+                                <div class="table__cell table__cell--genre">Filosofía</div>
+                                <div class="table__cell table__cell--year">1998</div>
+                                <div class="table__cell table__cell--copies">5</div>
+                                <div class="table__cell table__cell--disponibility">
+                                    <span class="disponibility--unavailable">0</span>
+                                </div>
+                            </div>
+
+                            <div class="table__row">
+                                <div class="table__cell table__cell--title">El Principito: Edición XYZ</div>
+                                <div class="table__cell table__cell--author">Goerge Panteón</div>
+                                <div class="table__cell table__cell--genre">Textos Antiguos</div>
+                                <div class="table__cell table__cell--year">2032</div>
+                                <div class="table__cell table__cell--copies">5</div>
+                                <div class="table__cell table__cell--disponibility">
+                                    <span class="disponibility--active">20</span>
+                                </div>
+                            </div>
+
+                            <div class="table__row">
+                                <div class="table__cell table__cell--title">El Principito</div>
+                                <div class="table__cell table__cell--author">Los Bunkers</div>
+                                <div class="table__cell table__cell--genre">Filosofía</div>
+                                <div class="table__cell table__cell--year">1948</div>
+                                <div class="table__cell table__cell--copies">2</div>
+                                <div class="table__cell table__cell--disponibility">
+                                    <span class="disponibility--active">2</span>
+                                </div>
+                            </div>
+
+                            <div class="table__row">
+                                <div class="table__cell table__cell--title">Generation Kill</div>
+                                <div class="table__cell table__cell--author">George Orwell</div>
+                                <div class="table__cell table__cell--genre">Filosofía</div>
+                                <div class="table__cell table__cell--year">1948</div>
+                                <div class="table__cell table__cell--copies">9</div>
+                                <div class="table__cell table__cell--disponibility">
+                                    <span class="disponibility--unavailable">0</span>
+                                </div>
+                            </div>
+
+                            <div class="table__row">
+                                <div class="table__cell table__cell--title">Apocalypse Now</div>
+                                <div class="table__cell table__cell--author">Finty James</div>
+                                <div class="table__cell table__cell--genre">Filosofía</div>
+                                <div class="table__cell table__cell--year">1998</div>
+                                <div class="table__cell table__cell--copies">3</div>
+                                <div class="table__cell table__cell--disponibility">
+                                    <span class="disponibility--unavailable">0</span>
+                                </div>
+                            </div>
+
+                            <div class="table__row">
+                                <div class="table__cell table__cell--title">El Principito: Edición XYZ</div>
+                                <div class="table__cell table__cell--author">Goerge Romero</div>
+                                <div class="table__cell table__cell--genre">Textos Antiguos</div>
+                                <div class="table__cell table__cell--year">2032</div>
+                                <div class="table__cell table__cell--copies">2</div>
+                                <div class="table__cell table__cell--disponibility">
+                                    <span class="disponibility--active">1</span>
+                                </div>
+                            </div>
+
+                            <div class="table__row">
+                                <div class="table__cell table__cell--title">El Principito</div>
+                                <div class="table__cell table__cell--author">George Orwell</div>
+                                <div class="table__cell table__cell--genre">Filosofía</div>
+                                <div class="table__cell table__cell--year">1948</div>
+                                <div class="table__cell table__cell--copies">30</div>
+                                <div class="table__cell table__cell--disponibility">
+                                    <span class="disponibility--active">20</span>
+                                </div>
+                            </div>
+
+                            <div class="table__row">
+                                <div class="table__cell table__cell--title">Generation Kill</div>
+                                <div class="table__cell table__cell--author">George Orwell</div>
+                                <div class="table__cell table__cell--genre">Filosofía</div>
+                                <div class="table__cell table__cell--year">1948</div>
+                                <div class="table__cell table__cell--copies">8</div>
+                                <div class="table__cell table__cell--disponibility">
+                                    <span class="disponibility--unavailable">0</span>
+                                </div>
+                            </div>
+
+                            <div class="table__row">
+                                <div class="table__cell table__cell--title">Apocalypse Now</div>
+                                <div class="table__cell table__cell--author">George Orwell</div>
+                                <div class="table__cell table__cell--genre">Filosofía</div>
+                                <div class="table__cell table__cell--year">1998</div>
+                                <div class="table__cell table__cell--copies">12</div>
+                                <div class="table__cell table__cell--disponibility">
+                                    <span class="disponibility--unavailable">0</span>
+                                </div>
+                            </div>
+
+                            <div class="table__row">
+                                <div class="table__cell table__cell--title">El Principito: Edición XYZ</div>
+                                <div class="table__cell table__cell--author">George Orwell</div>
+                                <div class="table__cell table__cell--genre">Textos Antiguos</div>
+                                <div class="table__cell table__cell--year">2032</div>
+                                <div class="table__cell table__cell--copies">24</div>
+                                <div class="table__cell table__cell--disponibility">
+                                    <span class="disponibility--active">3</span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+</body>
+
+</html>
