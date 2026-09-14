@@ -18,23 +18,32 @@ class SidebarComponent extends HTMLElement {
             "../components/sidebar.html"
         );
 
-        const cssResponse = await fetch(
-            "../components/sidebar.css"
-        );
-
         const html = await htmlResponse.text();
-        const css = await cssResponse.text();
 
         this.shadowRoot.innerHTML = `
-            <style>
-                ${css}
-            </style>
 
             ${html}
         `;
+        this.selectorColor();
+
+    }
+
+    selectorColor() {
+        const menuItems = this.shadowRoot.querySelectorAll(".sidebar-list .list-item");
+
+        menuItems.forEach(item => {
+            item.addEventListener("click", () => {
+
+                const currentActive = this.shadowRoot.querySelector(".list-item.item--active");
+                if (currentActive) {
+                    currentActive.classList.remove("item--active");
+                }
+
+                item.classList.add("item--active");
+            });
+        });
     }
 }
-
 customElements.define(
     "mi-sidebar",
     SidebarComponent
