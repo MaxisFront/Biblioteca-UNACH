@@ -35,24 +35,24 @@ input:focus {
 }
 
 .button__add {
-    background-color: var(--primary-color);
     border: 1px solid var(--secondary-color);
     padding: 0.6rem 0.8rem;
     border-radius: 0.8rem;
     color: var(--text-light);
     font-weight: 500;
+    background-color: var(--primary-color);
     transition-duration: 0.25s;
+    will-change: transform;
 }
 
 .button__add:hover {
     background-color: var(--active-medium);
-    transform: scale(1.02);
+    transform: scale(1.025);
 }
 
 .button__add:active {
     background-color: var(--active-color);
-    transform: scale(0.96);
-
+    transform: scale(0.975);
 }
 
 .search-bar {    
