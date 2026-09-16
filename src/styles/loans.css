@@ -105,6 +105,12 @@
     border-bottom-right-radius: 1rem;
 }
 
+.table__row:last-child:hover {
+    transform: scale(1.011);
+    box-shadow: none;
+
+}
+
 .table__cell {
     padding: 0 0.4rem;
     font-weight: 500;
