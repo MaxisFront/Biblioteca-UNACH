@@ -107,6 +107,8 @@
 
 .table__cell--title {
     font-weight: 600;
+    overflow-wrap: anywhere;
+
 }
 
 .table__cell--username,
@@ -115,7 +117,6 @@
 .table__cell--return-date {
     color: var(--text-gray);
 }
-
 
 .table__cell--status {
     width: 80%;
