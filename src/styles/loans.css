@@ -1,4 +1,4 @@
-.main__books {
+.main__loans {
     display: flex;
     flex-direction: column;
     height: 100vh;
@@ -32,4 +32,108 @@
 .button__add:active {
     background-color: var(--active-color);
     transform: scale(0.975);
+}
+
+
+.table__container {
+    padding: 1.3rem;
+}
+
+.table {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    max-height: 70vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.table__header-row,
+.table__row {
+    display: grid;
+    grid-template-columns: 1.5fr repeat(5, 1.2fr);
+}
+
+.table__header-row {
+    padding: 0.8rem 1.3rem;
+    border: 1.2px solid var(--border-gray-color);
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+}
+
+.table__header-cell {
+    padding: 0 0.3rem;
+    color: var(--text-gray);
+    font-weight: 500;
+}
+
+
+.table__row {
+    position: relative;
+    padding: 1.3rem 1.1rem;
+    background-color: var(--text-light);
+}
+
+.table__row:hover {
+    transform: scale(1.015);
+    box-shadow: 0 0.5rem 0.8rem 0 var(--text-gray);
+}
+
+/* Limitar tamaño de los extremos de border-top de cada row */
+.table__row::after {
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 1.5rem;
+    right: 1.5rem;
+    bottom: 0;
+    border-top: 1px solid var(--border-gray-color);
+}
+
+/* Eliminar border-top a la primera row después del table__header-row */
+.table__header-row + .table__row::after {
+    border-top: none;
+}
+
+.table__row:last-child {
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+}
+
+.table__cell {
+    padding: 0 0.4rem;
+    font-weight: 500;
+}
+
+.table__cell--title {
+    font-weight: 600;
+}
+
+.table__cell--username,
+.table__cell--loan-date,
+.table__cell--due-date,
+.table__cell--return-date {
+    color: var(--text-gray);
+}
+
+
+.table__cell--status {
+    width: 80%;
+    max-width: 8rem;
+    align-self: center;
+    padding: 0.15rem 0.05rem;
+    background-color: var(--infill-gray-color);
+    border: 1px solid var(--text-light);
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.status--active {
+    color: var(--active-color);
+}
+
+.status--expired {
+    color: var(--expired-color)
 }
