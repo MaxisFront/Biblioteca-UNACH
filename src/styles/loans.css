@@ -119,9 +119,10 @@
     color: var(--text-gray);
 }
 
-.table__cell--status {
-    width: 80%;
+.status {
+    display: inline-block;
     max-width: 8rem;
+    width: 90%;
     align-self: center;
     padding: 0.15rem 0.05rem;
     background-color: var(--infill-gray-color);
@@ -132,14 +133,3 @@
     text-align: center;
 }
 
-.status--active {
-    color: var(--active-color);
-}
-
-.status--expired {
-    color: var(--expired-color)
-}
-
-.status--expired {
-    color: var(--expired-color)
-}
