@@ -51,8 +51,9 @@
 .table__header-row,
 .table__row {
     display: grid;
-    grid-template-columns: 1.5fr repeat(5, 1.2fr);
+    grid-template-columns: 1.5fr repeat(4, 1.2fr) 1.5fr;
 }
+
 
 .table__header-row {
     padding: 0.8rem 1.3rem;
@@ -133,6 +134,10 @@
 
 .status--active {
     color: var(--active-color);
+}
+
+.status--expired {
+    color: var(--expired-color)
 }
 
 .status--expired {
