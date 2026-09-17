@@ -80,10 +80,14 @@ input:focus {
 }
 
 .table__header-row {
+    position: sticky;
+    top: 0;
+    z-index: 10;
     padding: 0.8rem 1.3rem;
     border: 1.2px solid var(--border-gray-color);
     border-top-left-radius: 1rem;
     border-top-right-radius: 1rem;
+    background-color: var(--secondary-color);
 }
 
 .table__header-cell {
