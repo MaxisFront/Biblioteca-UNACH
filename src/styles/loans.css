@@ -65,20 +65,26 @@
     position: sticky;
     top: 0;
     z-index: 1;
+    padding: 0.8rem 1.1rem;
     border: 1.2px solid var(--border-gray-color);
     border-top-left-radius: 1rem;
     border-top-right-radius: 1rem;
     background-color: var(--secondary-color);
 }
 
+.table__header-cell,
+.table__cell {
+    padding: 0 0.4rem;
+}
+
 .table__header-cell {
-    padding: 0 0.3rem;
     color: var(--text-gray);
     font-weight: 500;
 }
 
 .table__row {
     position: relative;
+    padding: 1.3rem 1.1rem;
     background-color: var(--text-light);
 }
 
@@ -115,7 +121,6 @@
 }
 
 .table__cell {
-    padding: 0 0.4rem;
     font-weight: 500;
 }
 
