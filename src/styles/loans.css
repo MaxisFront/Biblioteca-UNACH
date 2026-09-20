@@ -160,7 +160,7 @@
     background-color: var(--expired-light);
 }
 
-.table__row--actions {
+.table__row-actions {
     display: flex;
     justify-content: space-around;
 }
