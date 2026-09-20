@@ -8,8 +8,6 @@ function setupModal(dialogId, openBtnSelector) {
     /** @type {HTMLButtonElement} */
     const cancelBtn = document.querySelector(".modal__button--cancel");
 
-    dialog.showModal()
-
 
     if (newBookBtn && dialog) {
         newBookBtn.addEventListener("click", () => { dialog.showModal() })
@@ -17,6 +15,16 @@ function setupModal(dialogId, openBtnSelector) {
 
     if (closeBtn && dialog) {
         closeBtn.addEventListener("click", () => dialog.close())
+    }
+
+    if (cancelBtn && dialog) {
+        cancelBtn.addEventListener("click", () => dialog.close())
+    }
+
+    if (dialog) {
+        dialog.addEventListener("click", (e) => {
+            if (e.target === dialog) dialog.close();
+        })
     }
 }
 
