@@ -12,6 +12,31 @@ dialog::backdrop {
     background-color: rgba(0, 0, 0, 0.35);
 }
 
+select, 
+input {
+    padding: 0.2rem 0.8rem;
+    background-color: var(--secondary-color);
+    border: 1px solid var(--border-gray-color);
+    border-radius: 1rem;
+    transition-duration: 0.2s;
+}
+
+select:hover,
+input:hover {
+    background-color: var(--infill-light-color);
+}
+
+select:active,
+input:active {
+    transform: scale(1.015);
+}
+
+select:focus,
+input:focus {
+    background-color: var(--infill-gray-color);
+    outline: none;
+}
+
 .modal {
     width: 100%;
     display: flex;
@@ -39,4 +64,24 @@ dialog::backdrop {
 .modal__field {
     display: flex;
     flex-direction: column;
+    gap: 0.75rem;
 }
+
+
+.modal__title,
+.modal__label {
+    font-weight: 600;
+}
+
+.modal__button {
+    font-size: 0.8rem;
+    background-color: var(--text-light);
+    border: none;
+}
+
+.modal__button--close {
+    padding: 0 0.25rem;
+    font-size: 1.25rem;
+    cursor: pointer;
+}
+
