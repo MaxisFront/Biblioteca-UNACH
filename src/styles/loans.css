@@ -52,7 +52,7 @@
 .table__header-row,
 .table__row {
     display: grid;
-    grid-template-columns: 1.5fr repeat(4, 1.2fr) 1.5fr;
+    grid-template-columns: 1.5fr repeat(4, 1.2fr) 1.5fr 0.5fr;
 }
 
 
@@ -158,3 +158,14 @@
     background-color: var(--expired-light);
 }
 
+.table__row--actions {
+    display: flex;
+    gap: 1.4rem;
+    background-color: red;
+}
+
+.icon {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
