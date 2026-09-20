@@ -41,19 +41,29 @@
 
                         <div class="modal__header">
                             <h3 class="modal__title">Nuevo préstamo</h3>
-                            <button type="button" class="modal__button modal__button--close" aria-label="Cerrar">X</button>
+                            <button type="button" class="modal__button modal__button--close" aria-label="Cerrar">&times;</button>
                         </div>
 
                         <div class="modal__form">
                             <form id="loan-form">
                                 <div class="modal__field">
                                     <label for="loan-book" class="modal__label">Libro</label>
-                                    <select id="loan-book" required>Seleccionar libro...</select>
+                                    <select id="loan-book" required>
+                                        <option value="" disabled selected>Seleccionar libro...</option>
+                                        <option value="1">Apocalypse Now</option>
+                                        <option value="2">1984</option>
+                                        <option value="3">El señor de las Moscas</option>
+                                    </select>
                                 </div>
 
                                 <div class="modal__field">
                                     <label for="loan-user" class="modal__label">Usuario</label>
-                                    <select id="loan-user" required>Seleccionar usuario...</select>
+                                    <select id="loan-user" required>
+                                        <option value="" disabled selected>Seleccionar usuario...</option>
+                                        <option value="1">Selene Gómez</option>
+                                        <option value="2">Jonh Conrad</option>
+                                        <option value="3">James Martínez</option>
+                                    </select>
                                 </div>
 
                                 <div class="modal__field">
