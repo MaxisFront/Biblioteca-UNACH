@@ -23,12 +23,8 @@ input {
 
 select:hover,
 input:hover {
+    transform: scale(1.01);
     background-color: var(--infill-light-color);
-}
-
-select:active,
-input:active {
-    transform: scale(1.015);
 }
 
 select:focus,
@@ -36,6 +32,11 @@ input:focus {
     background-color: var(--infill-gray-color);
     outline: none;
 }
+
+input:active {
+    transform: scale(0.985);
+}
+
 
 .modal {
     width: 100%;
@@ -52,7 +53,7 @@ input:focus {
 #loan-form {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 1rem;
 }
 
 .modal__header {
@@ -85,3 +86,47 @@ input:focus {
     cursor: pointer;
 }
 
+.modal__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem
+}
+
+.modal__button--cancel,
+.modal__button--submit {
+    border-radius: 12px;
+    transition-duration: 0.2s;
+    font-weight: 600
+}
+
+.modal__button--cancel:hover,
+.modal__button--submit:hover {
+    transform: scale(1.05);
+}
+
+.modal__button--cancel:active,
+.modal__button--submit:active {
+    transform: scale(0.995);
+}
+
+.modal__button--cancel {
+    padding: 0.2rem 1rem;
+}
+
+.modal__button--cancel:hover {
+    background-color: var(--infill-gray-color);
+}
+
+.modal__button--submit {
+    padding: 0.2rem 2rem;
+    color: var(--text-light);
+    background-color: var(--active-medium);
+}
+
+.modal__button--submit:hover {
+    background-color: var(--primary-color);
+}
+
+.modal__button--submit:active {
+    background-color: var(--active-color);
+}
