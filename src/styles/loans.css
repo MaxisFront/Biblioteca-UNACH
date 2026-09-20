@@ -102,6 +102,7 @@
     right: 1.5rem;
     bottom: 0;
     border-top: 1px solid var(--border-gray-color);
+    pointer-events: none;
 }
 
 /* Eliminar border-top a la primera row después del table__header-row */
@@ -174,4 +175,9 @@
     background: none;
     border: none;
     cursor: pointer;
+}
+
+.icon img {
+    width: 1rem;
+    height: 1rem;
 }
