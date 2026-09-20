@@ -52,7 +52,7 @@
 .table__header-row,
 .table__row {
     display: grid;
-    grid-template-columns: 1.5fr repeat(4, 1.2fr) 1.5fr 0.8fr;
+    grid-template-columns: 1.5fr repeat(4, 1.2fr) 1.5fr 1fr;
 }
 
 
@@ -166,18 +166,40 @@
     background-color: var(--expired-light);
 }
 
-.table__row-actions {
-    display: flex;
-    justify-content: space-around;
+/* Hacer visible las opciones cuando se hace hover en la fila */
+
+.table__row:hover .table__row-actions {
+    opacity: 1;
 }
 
+.table__row-actions {
+    opacity: 0;
+    display: flex;
+    justify-content: space-around;
+    transition: 0.2s;
+}
+
+
 .icon {
-    background: none;
+    height: 1.5rem;
+    width: 1.5rem;
     border: none;
     cursor: pointer;
+    background: none;
 }
 
 .icon img {
-    width: 1rem;
-    height: 1rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    padding: 0.15rem;
+    border-radius: 6px;
+    transition-duration: 0.25s;
+}
+
+.icon--return img:hover {
+    background-color: var(--active-light);
+}
+
+.icon--delete img:hover {
+    background-color: var(--danger-light);
 }
