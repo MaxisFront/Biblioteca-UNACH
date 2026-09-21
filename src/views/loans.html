@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles/styles.css">
+    <link rel="stylesheet" href="../styles/loans.css">
+    <link rel="stylesheet" href="../styles/modal.css">
+    <script type="module" src="../components/sideabar.js"></script>
+    <script type="module" src="../js/core.js"></script>
+
+    <title>Préstamos</title>
+</head>
+
+<body>
+
+    <main class="main">
+        <div class="app__layout">
+            <nav>
+                <mi-sidebar active-item="loans"></mi-sidebar>
+            </nav>
+
+            <section class="main__loans">
+                <header class="header">
+
+                    <div class="header__text">
+                        <h2 class="header__title">Gestión de préstamos</h2>
+                        <span class="header__description">24 préstamos activos</span>
+                    </div>
+
+                    <div class="header__button">
+                        <button class="button__add"> <span class="button__icon">+</span> Nuevo Préstamo</button>
+                    </div>
+                </header>
+
+
+
+                <dialog id="loan-dialog">
+                    <div class="modal">
+
+                        <div class="modal__header">
+                            <h3 class="modal__title">Nuevo préstamo</h3>
+                            <button type="button" class="modal__button modal__button--close" aria-label="Cerrar">&times;</button>
+                        </div>
+
+                        <div class="modal__form">
+                            <form id="loan-form">
+                                <div class="modal__field">
+                                    <label for="loan-book" class="modal__label">Libro</label>
+                                    <select id="loan-book" required>
+                                        <option value="" disabled selected>Seleccionar libro...</option>
+                                        <option value="1">Apocalypse Now</option>
+                                        <option value="2">1984</option>
+                                        <option value="3">El señor de las Moscas</option>
+                                    </select>
+                                </div>
+
+                                <div class="modal__field">
+                                    <label for="loan-user" class="modal__label">Usuario</label>
+                                    <select id="loan-user" required>
+                                        <option value="" disabled selected>Seleccionar usuario...</option>
+                                        <option value="1">Selene Gómez</option>
+                                        <option value="2">Jonh Conrad</option>
+                                        <option value="3">James Martínez</option>
+                                    </select>
+                                </div>
+
+                                <div class="modal__field">
+                                    <label for="loan-date" class="modal__label">Fecha de devolución estimada</label>
+                                    <input type="date" id="loan-date" required>
+                                </div>
+
+                                <div class="modal__actions">
+                                    <button type="button" class="modal__button modal__button--cancel">Cancelar</button>
+                                    <button type="submit" class="modal__button modal__button--submit" disabled>Enviar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </dialog>
+
+                <div class="loans__table">
+                    <div class="table__container">
+                        <div class="table">
+
+                            <div class="table__header-row">
+                                <div class="table__header-cell table__header-cell--title">Libro</div>
+                                <div class="table__header-cell table__header-cell--username">Usuario</div>
+                                <div class="table__header-cell table__header-cell--loan-date">Fecha Préstamo</div>
+                                <div class="table__header-cell table__header-cell--due-date">Fecha Límite</div>
+                                <div class="table__header-cell table__header-cell--return-date">Fecha Entregado</div>
+                                <div class="table__header-cell table__header-cell--status">Estado</div>
+                            </div>
+
+                            <div class="table__row">
+                                <div class="table__cell table__cell--title">El Principito</div>
+                                <div class="table__cell table__cell--username">Jorge Orantes</div>
+                                <div class="table__cell table__cell--loan-date">10 ago 2026</div>
+                                <div class="table__cell table__cell--due-date">20 oct 2026</div>
+                                <div class="table__cell table__cell--return-date">------</div>
+                                <div class="table__cell table__cell--status">
+                                    <span class="status status--active">Activo</span>
+                                </div>
+                                <div class="table__row-actions">
+                                    <button class="icon icon--return" title="Devolver libro" aria-label="Devolver"><img src="../assets/icons/Return.svg" alt=""></button>
+                                    <button class="icon icon--delete" title="Elimina préstamo" aria-label="Eliminar"><img src="../assets/icons/Trash.svg" alt=""></button>
+                                </div>
+                            </div>
+
+                            <div class="table__row">
+                                <div class="table__cell table__cell--title">1984</div>
+                                <div class="table__cell table__cell--username">Brandon Sánchez</div>
+                                <div class="table__cell table__cell--loan-date">26 ago 2026</div>
+                                <div class="table__cell table__cell--due-date">18 sep 2026</div>
+                                <div class="table__cell table__cell--return-date">------</div>
+                                <div class="table__cell table__cell--status">
+                                    <span class="status status--active">Activo</span>
+                                </div>
+                                <div class="table__row-actions">
+                                    <button class="icon icon--return" title="Devolver libro" aria-label="Devolver"><img src="../assets/icons/Return.svg" alt=""></button>
+                                    <button class="icon icon--delete" title="Elimina préstamo" aria-label="Eliminar"><img src="../assets/icons/Trash.svg" alt=""></button>
+                                </div>
+                            </div>
+
+                            <div class="table__row">
+                                <div class="table__cell table__cell--title">Apocalypse Now</div>
+                                <div class="table__cell table__cell--username">Irma Castillos</div>
+                                <div class="table__cell table__cell--loan-date">02 sep 2026</div>
+                                <div class="table__cell table__cell--due-date">15 sep 2026</div>
+                                <div class="table__cell table__cell--return-date">------</div>
+                                <div class="table__cell table__cell--status">
+                                    <span class="status status--expired">Vencido</span>
+                                </div>
+                                <div class="table__row-actions">
+                                    <button class="icon icon--return" title="Devolver libro" aria-label="Devolver"><img src="../assets/icons/Return.svg" alt=""></button>
+                                    <button class="icon icon--delete" title="Elimina préstamo" aria-label="Eliminar"><img src="../assets/icons/Trash.svg" alt=""></button>
+                                </div>
+                            </div>
+
+                            <div class="table__row">
+                                <div class="table__cell table__cell--title">Apocalypse Now</div>
+                                <div class="table__cell table__cell--username">Jorge Castillos</div>
+                                <div class="table__cell table__cell--loan-date">02 sep 2026</div>
+                                <div class="table__cell table__cell--due-date">15 sep 2026</div>
+                                <div class="table__cell table__cell--return-date">------</div>
+                                <div class="table__cell table__cell--status">
+                                    <span class="status status--expired">Vencido</span>
+                                </div>
+                                <div class="table__row-actions">
+                                    <button class="icon icon--return" title="Devolver libro" aria-label="Devolver"><img src="../assets/icons/Return.svg" alt=""></button>
+                                    <button class="icon icon--delete" title="Elimina préstamo" aria-label="Eliminar"><img src="../assets/icons/Trash.svg" alt=""></button>
+                                </div>
+                            </div>
+
+                            <div class="table__row">
+                                <div class="table__cell table__cell--title">Spec Ops: The Line</div>
+                                <div class="table__cell table__cell--username">Dulce Jacqueline</div>
+                                <div class="table__cell table__cell--loan-date">09 sep 2026</div>
+                                <div class="table__cell table__cell--due-date">12 sep 2026</div>
+                                <div class="table__cell table__cell--return-date">11 sep 2026</div>
+                                <div class="table__cell table__cell--status">
+                                    <span class="status status--delivered">Devuelto</span>
+                                </div>
+                                <div class="table__row-actions">
+                                    <button class="icon icon--return" title="Devolver libro" aria-label="Devolver"><img src="../assets/icons/Return.svg" alt=""></button>
+                                    <button class="icon icon--delete" title="Elimina préstamo" aria-label="Eliminar"><img src="../assets/icons/Trash.svg" alt=""></button>
+                                </div>
+                            </div>
+
+                            <div class="table__row">
+                                <div class="table__cell table__cell--title">1984</div>
+                                <div class="table__cell table__cell--username">Brandon Sánchez</div>
+                                <div class="table__cell table__cell--loan-date">26 ago 2026</div>
+                                <div class="table__cell table__cell--due-date">18 sep 2026</div>
+                                <div class="table__cell table__cell--return-date">------</div>
+                                <div class="table__cell table__cell--status">
+                                    <span class="status status--active">Activo</span>
+                                </div>
+                                <div class="table__row-actions">
+                                    <button class="icon icon--return" title="Devolver libro" aria-label="Devolver"><img src="../assets/icons/Return.svg" alt=""></button>
+                                    <button class="icon icon--delete" title="Elimina préstamo" aria-label="Eliminar"><img src="../assets/icons/Trash.svg" alt=""></button>
+                                </div>
+                            </div>
+
+                            <div class="table__row">
+                                <div class="table__cell table__cell--title">El Principito</div>
+                                <div class="table__cell table__cell--username">Jorge Orantes</div>
+                                <div class="table__cell table__cell--loan-date">10 ago 2026</div>
+                                <div class="table__cell table__cell--due-date">20 oct 2026</div>
+                                <div class="table__cell table__cell--return-date">------</div>
+                                <div class="table__cell table__cell--status">
+                                    <span class="status status--active">Activo</span>
+                                </div>
+                                <div class="table__row-actions">
+                                    <button class="icon icon--return" title="Devolver libro" aria-label="Devolver"><img src="../assets/icons/Return.svg" alt=""></button>
+                                    <button class="icon icon--delete" title="Elimina préstamo" aria-label="Eliminar"><img src="../assets/icons/Trash.svg" alt=""></button>
+                                </div>
+                            </div>
+
+                            <div class="table__row">
+                                <div class="table__cell table__cell--title">Spec Ops: The Line</div>
+                                <div class="table__cell table__cell--username">Dulce Jacqueline</div>
+                                <div class="table__cell table__cell--loan-date">06 sep 2026</div>
+                                <div class="table__cell table__cell--due-date">07 sep 2026</div>
+                                <div class="table__cell table__cell--return-date">07 sep 2026</div>
+                                <div class="table__cell table__cell--status">
+                                    <span class="status status--delivered">Devuelto</span>
+                                </div>
+                                <div class="table__row-actions">
+                                    <button class="icon icon--return" title="Devolver libro" aria-label="Devolver"><img src="../assets/icons/Return.svg" alt=""></button>
+                                    <button class="icon icon--delete" title="Elimina préstamo" aria-label="Eliminar"><img src="../assets/icons/Trash.svg" alt=""></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </section>
+        </div>
+    </main>
+
+</body>
+
+</html>
