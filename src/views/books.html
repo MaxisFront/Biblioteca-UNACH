@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="../styles/styles.css">
     <link rel="stylesheet" href="../styles/books.css">
     <script type="module" src="../components/sideabar.js"></script>
+    <link rel="stylesheet" href="../styles/modal.css">
+    <script type="module" src="../components/sideabar.js"></script>
+    <script type="module" src="../js/core.js"></script>
 
     <title>Catálogo</title>
 </head>
@@ -30,6 +33,58 @@
                         <button class="button__add"> <span class="button__icon">+</span> Nuevo Libro</button>
                     </div>
                 </header>
+
+                <dialog id="books-dialog">
+                    <div class="modal">
+
+                        <div class="modal__header">
+                            <h3 class="modal__title">Nuevo libro</h3>
+                            <button type="button" class="modal__button modal__button--close" aria-label="Cerrar">&times;</button>
+                        </div>
+
+                        <div class="modal__form">
+                            <form id="loan-form">
+
+                                <div class="modal__field">
+                                    <label for="">Título</label>
+                                    <input type="text" id="book-name" required>
+                                    <label for=""></label>
+                                </div>
+
+                                <div class="modal__field">
+                                    <label for="loan-book" class="modal__label">Libro</label>
+                                    <select id="loan-book" required>
+                                        <option value="" disabled selected>Seleccionar libro...</option>
+                                        <option value="1">Apocalypse Now</option>
+                                        <option value="2">1984</option>
+                                        <option value="3">El señor de las Moscas</option>
+                                    </select>
+                                </div>
+
+                                <div class="modal__field">
+                                    <label for="loan-user" class="modal__label">Usuario</label>
+                                    <select id="loan-user" required>
+                                        <option value="" disabled selected>Seleccionar usuario...</option>
+                                        <option value="1">Selene Gómez</option>
+                                        <option value="2">Jonh Conrad</option>
+                                        <option value="3">James Martínez</option>
+                                    </select>
+                                </div>
+
+                                <div class="modal__field">
+                                    <label for="loan-date" class="modal__label">Fecha de devolución estimada</label>
+                                    <input type="date" id="loan-date" required>
+                                </div>
+
+                                <div class="modal__actions">
+                                    <button type="button" class="modal__button modal__button--cancel">Cancelar</button>
+                                    <button type="submit" class="modal__button modal__button--submit" disabled>Enviar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </dialog>
+
 
                 <div class="search-bar">
                     <input type="text" placeholder="Buscar por título de libro...">
