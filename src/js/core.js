@@ -29,3 +29,4 @@ function setupModal(dialogId, openBtnSelector) {
 }
 
 setupModal("loan-dialog", ".header__button .button__add")
+setupModal("books-dialog", ".header__button .button_add")
