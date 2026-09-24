@@ -16,7 +16,7 @@
         <div class="app__layout">
 
             <nav class="main__menu">
-                <mi-sidebar></mi-sidebar>
+                <mi-sidebar active-item="dashboard"></mi-sidebar>
             </nav>
 
             <section class="main__dashboard">
@@ -25,39 +25,144 @@
                     <span class="dashboard__description">Vista general de la biblioteca</span>
                 </div>
 
-                <div class="dashboard__statics">
+                <div class="dashboard__statistics">
                     <div class="dashboard__card">
                         <h3 class="card__title">Total de libros</h3>
-                        <span class="card__number">6</span>
-                        <h4 class="card__indicator">23 ejemplares</h4>
+                        <span class="card__number card__number--books">6</span>
                     </div>
 
                     <div class="dashboard__card">
-                        <h3 class="card__title">Prestamos activos</h3>
-                        <span class="card__number">3</span>
-                        <h4 class="card__indicator">2 vencidos</h4>
+                        <h3 class="card__title">Préstamos activos</h3>
+                        <span class="card__number card__number--loans">3</span>
                     </div>
                     <div class="dashboard__card">
                         <h3 class="card__title">Usuarios</h3>
-                        <span class="card__number">5</span>
-                        <h4 class="card__indicator">4 activos</h4>
+                        <span class="card__number card__number--users">5</span>
                     </div>
                 </div>
 
                 <div class="dashboard__table">
                     <div class="table__container">
-                        <h3 class="table__title">Prestamos:</h3>
+                        <h3 class="table__title">Préstamos Recientes</h3>
                         <div class="table">
-                            <div class="table__header">Libro</div>
-                            <div class="table__header">Usuario</div>
-                            <div class="table__header">Vencimiento</div>
-                            <div class="table__header">Estado</div>
+                            <div class="table__header-row">
+                                <div class="table__header-cell table__header-cell--title">Libro</div>
+                                <div class="table__header-cell table__header-cell--username">Usuario</div>
+                                <div class="table__header-cell table__header-cell--expiration">Vencimiento</div>
+                                <div class="table__header-cell table__header-cell--status">Estado</div>
+                            </div>
 
-                            <div class="table__row">El principito</div>
-                            <div class="table__row">Carlos Andres</div>
-                            <div class="table__row">Hoy</div>
-                            <div class="table__row">Activo</div>
+                            <div class="table__row">
+                                <div class="table__cell table__cell--title">1984</div>
+                                <div class="table__cell table__cell--username">Roberto Ramírez</div>
+                                <div class="table__cell table__cell--expiration">26 sep 2026</div>
+                                <div class="table__cell table__cell--status">
+                                    <span class="status status--active">Activo</span>
+                                </div>
+                            </div>
 
+                            <div class="table__row">
+                                <div class="table__cell table__cell--title">Metro 2033</div>
+                                <div class="table__cell table__cell--username">Sally Castellanos</div>
+                                <div class="table__cell table__cell--expiration">12 jul 2026</div>
+                                <div class="table__cell table__cell--status">
+                                    <span class="status status--expired">Vencido</span>
+                                </div>
+                            </div>
+
+                            <div class="table__row">
+                                <div class="table__cell table__cell--title">El principito</div>
+                                <div class="table__cell table__cell--username">Carlos Andres</div>
+                                <div class="table__cell table__cell--expiration">10 ago 2026</div>
+                                <div class="table__cell table__cell--status">
+                                    <span class="status status--delivered">Entregado</span>
+                                </div>
+                            </div>
+
+                            <div class="table__row">
+                                <div class="table__cell table__cell--title">1984</div>
+                                <div class="table__cell table__cell--username">Roberto Ramírez</div>
+                                <div class="table__cell table__cell--expiration">26 sep 2026</div>
+                                <div class="table__cell table__cell--status">
+                                    <span class="status status--active">Activo</span>
+                                </div>
+                            </div>
+
+                            <div class="table__row">
+                                <div class="table__cell table__cell--title">Metro 2033</div>
+                                <div class="table__cell table__cell--username">Sally Castellanos</div>
+                                <div class="table__cell table__cell--expiration">12 jul 2026</div>
+                                <div class="table__cell table__cell--status">
+                                    <span class="status status--expired">Vencido</span>
+                                </div>
+                            </div>
+
+                            <div class="table__row">
+                                <div class="table__cell table__cell--title">El principito</div>
+                                <div class="table__cell table__cell--username">Carlos Andres</div>
+                                <div class="table__cell table__cell--expiration">10 ago 2026</div>
+                                <div class="table__cell table__cell--status">
+                                    <span class="status status--delivered">Entregado</span>
+                                </div>
+                            </div>
+
+                            <div class="table__row">
+                                <div class="table__cell table__cell--title">1984</div>
+                                <div class="table__cell table__cell--username">Roberto Ramírez</div>
+                                <div class="table__cell table__cell--expiration">26 sep 2026</div>
+                                <div class="table__cell table__cell--status">
+                                    <span class="status status--active">Activo</span>
+                                </div>
+                            </div>
+
+                            <div class="table__row">
+                                <div class="table__cell table__cell--title">Metro 2033</div>
+                                <div class="table__cell table__cell--username">Sally Castellanos</div>
+                                <div class="table__cell table__cell--expiration">12 jul 2026</div>
+                                <div class="table__cell table__cell--status">
+                                    <span class="status status--expired">Vencido</span>
+                                </div>
+                            </div>
+
+                            <div class="table__row">
+                                <div class="table__cell table__cell--title">El principito</div>
+                                <div class="table__cell table__cell--username">Carlos Andres</div>
+                                <div class="table__cell table__cell--expiration">10 ago 2026</div>
+                                <div class="table__cell table__cell--status">
+                                    <span class="status status--delivered">Entregado</span>
+                                </div>
+                            </div>
+
+                            <div class="table__row">
+                                <div class="table__cell table__cell--title">1984</div>
+                                <div class="table__cell table__cell--username">Roberto Ramírez</div>
+                                <div class="table__cell table__cell--expiration">26 sep 2026</div>
+                                <div class="table__cell table__cell--status">
+                                    <span class="status status--active">Activo</span>
+                                </div>
+                            </div>
+
+                            <div class="table__row">
+                                <div class="table__cell table__cell--title">Metro 2033</div>
+                                <div class="table__cell table__cell--username">Sally Castellanos</div>
+                                <div class="table__cell table__cell--expiration">12 jul 2026</div>
+                                <div class="table__cell table__cell--status">
+                                    <span class="status status--expired">Vencido</span>
+                                </div>
+                            </div>
+
+                            <div class="table__row">
+                                <div class="table__cell table__cell--title">El principito</div>
+                                <div class="table__cell table__cell--username">Carlos Andres</div>
+                                <div class="table__cell table__cell--expiration">10 ago 2026</div>
+                                <div class="table__cell table__cell--status">
+                                    <span class="status status--delivered">Entregado</span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
             </section>
         </div>
     </main>
