@@ -8,7 +8,6 @@ function setupModal(dialogId, openBtnSelector) {
     /** @type {HTMLButtonElement} */
     const cancelBtn = document.querySelector(".modal__button--cancel");
 
-
     if (newBookBtn && dialog) {
         newBookBtn.addEventListener("click", () => { dialog.showModal() })
     }
@@ -26,7 +25,12 @@ function setupModal(dialogId, openBtnSelector) {
             if (e.target === dialog) dialog.close();
         })
     }
+
+    // Debugging
+    if(dialogId === "books-dialog") {
+        dialog.showModal();
+    }
 }
 
 setupModal("loan-dialog", ".header__button .button__add")
-setupModal("books-dialog", ".header__button .button_add")
+setupModal("books-dialog", ".header__button .button__add")

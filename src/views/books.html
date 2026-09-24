@@ -46,34 +46,29 @@
                             <form id="loan-form">
 
                                 <div class="modal__field">
-                                    <label for="">Título</label>
+                                    <label for="book-name">Título</label>
                                     <input type="text" id="book-name" required>
-                                    <label for=""></label>
+                                </div>
+    
+                                <div class="modal__field">
+                                    <label for="author-name">Autor</label>
+                                    <input type="text" id="author-name" required>
+                                </div>  
+                                
+                                <div class="modal__field">
+                                    <label for="isbn-value">ISBN</label>
+                                    <input type="text" id="isbn-value" required>
+                                    <label for="genre-name">Género</label>
+                                    <input type="text" id="genre-name" required>
                                 </div>
 
                                 <div class="modal__field">
-                                    <label for="loan-book" class="modal__label">Libro</label>
-                                    <select id="loan-book" required>
-                                        <option value="" disabled selected>Seleccionar libro...</option>
-                                        <option value="1">Apocalypse Now</option>
-                                        <option value="2">1984</option>
-                                        <option value="3">El señor de las Moscas</option>
-                                    </select>
-                                </div>
-
-                                <div class="modal__field">
-                                    <label for="loan-user" class="modal__label">Usuario</label>
-                                    <select id="loan-user" required>
-                                        <option value="" disabled selected>Seleccionar usuario...</option>
-                                        <option value="1">Selene Gómez</option>
-                                        <option value="2">Jonh Conrad</option>
-                                        <option value="3">James Martínez</option>
-                                    </select>
-                                </div>
-
-                                <div class="modal__field">
-                                    <label for="loan-date" class="modal__label">Fecha de devolución estimada</label>
-                                    <input type="date" id="loan-date" required>
+                                    <label for="year-value">Año</label>
+                                    <input type="number" id="year-value" required>
+                                    <label for="copies-value">Ejemplares</label>
+                                    <input type="number" id="copies-value" required>
+                                    <label for="available-books-value">Disponibles</label>
+                                    <input type="number" id="available-books-value" required>
                                 </div>
 
                                 <div class="modal__actions">
