@@ -25,11 +25,6 @@ function setupModal(dialogId, openBtnSelector) {
             if (e.target === dialog) dialog.close();
         })
     }
-
-    // Debugging
-    if(dialogId === "books-dialog") {
-        dialog.showModal();
-    }
 }
 
 setupModal("loan-dialog", ".header__button .button__add")
