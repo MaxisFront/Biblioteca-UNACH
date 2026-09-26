@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="../styles/styles.css">
     <link rel="stylesheet" href="../styles/books.css">
     <script type="module" src="../components/sideabar.js"></script>
+    <link rel="stylesheet" href="../styles/modal.css">
+    <script type="module" src="../components/sideabar.js"></script>
+    <script type="module" src="../js/core.js"></script>
 
     <title>Catálogo</title>
 </head>
@@ -30,6 +33,66 @@
                         <button class="button__add"> <span class="button__icon">+</span> Nuevo Libro</button>
                     </div>
                 </header>
+
+                <dialog id="books-dialog">
+                    <div class="modal">
+
+                        <div class="modal__header">
+                            <h3 class="modal__title">Nuevo libro</h3>
+                            <button type="button" class="modal__button modal__button--close" aria-label="Cerrar">&times;</button>
+                        </div>
+
+                        <div class="modal__form">
+                            <form id="loan-form">
+
+                                <div class="modal__field">
+                                    <label for="book-name" class="modal__label">Título</label>
+                                    <input type="text" id="book-name" placeholder="Título del libro..." minlength="1" required>
+                                </div>
+    
+                                <div class="modal__field">
+                                    <label for="author-name" class="modal__label">Autor</label>
+                                    <input type="text" id="author-name" placeholder="Nombre del autor..." minlength="1" required>
+                                </div>  
+                                
+                                <div class="modal__field modal__field--columns">
+                                    <div class="modal__group">
+                                        <label for="isbn-value" class="modal__label">ISBN</label>
+                                        <input type="text" id="isbn-value" placeholder="978-...-....-..-." minlength="17" maxlength="17" required>
+                                    </div>
+
+                                    <div class="modal__group">
+                                        <label for="genre-name" class="modal__label">Género</label>
+                                        <input type="text" id="genre-name" placeholder="Novela, Poesía..." minlength="1" required>
+                                    </div>
+                                </div>
+
+                                <div class="modal__field modal__field--columns">
+                                    <div class="modal__group">
+                                        <label for="year-value" class="modal__label">Año</label>
+                                        <input type="number" id="year-value" placeholder="2026" min="1500" max="2099" required>
+                                    </div>
+
+                                    <div class="modal__group">
+                                        <label for="copies-value" class="modal__label">Ejemplares</label>
+                                        <input type="number" id="copies-value" placeholder="1" min="1" required>
+                                    </div>
+
+                                    <div class="modal__group">
+                                        <label for="available-books-value" class="modal__label">Disponibles</label>
+                                        <input type="number" id="available-books-value" placeholder="1" min="1" required>
+                                    </div>
+                                </div>
+
+                                <div class="modal__actions">
+                                    <button type="button" class="modal__button modal__button--cancel">Cancelar</button>
+                                    <button type="submit" class="modal__button modal__button--submit" disabled>Enviar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </dialog>
+
 
                 <div class="search-bar">
                     <input type="text" placeholder="Buscar por título de libro...">

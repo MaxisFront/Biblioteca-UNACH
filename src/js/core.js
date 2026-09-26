@@ -8,7 +8,6 @@ function setupModal(dialogId, openBtnSelector) {
     /** @type {HTMLButtonElement} */
     const cancelBtn = document.querySelector(".modal__button--cancel");
 
-
     if (newBookBtn && dialog) {
         newBookBtn.addEventListener("click", () => { dialog.showModal() })
     }
@@ -29,3 +28,4 @@ function setupModal(dialogId, openBtnSelector) {
 }
 
 setupModal("loan-dialog", ".header__button .button__add")
+setupModal("books-dialog", ".header__button .button__add")
