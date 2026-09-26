@@ -47,35 +47,40 @@
 
                                 <div class="modal__field">
                                     <label for="book-name">Título</label>
-                                    <input type="text" id="book-name" required>
+                                    <input type="text" id="book-name" placeholder="Título del libro..." minlength="1" required>
                                 </div>
     
                                 <div class="modal__field">
                                     <label for="author-name">Autor</label>
-                                    <input type="text" id="author-name" required>
+                                    <input type="text" id="author-name" placeholder="Nombre del autor..." minlength="1" required>
                                 </div>  
                                 
-                                <div class="modal__field">
-                                    <label for="isbn-value">ISBN</label>
-                                    <input type="text" id="isbn-value" required>
-                                    <label for="genre-name">Género</label>
-                                    <input type="text" id="genre-name" required>
+                                <div class="modal__field modal__field--columns">
+                                    <div class="modal__group">
+                                        <label for="isbn-value">ISBN</label>
+                                        <input type="text" id="isbn-value" placeholder="978-...-....-..-." minlength="17" maxlength="17" required>
+                                    </div>
+
+                                    <div class="modal__group">
+                                        <label for="genre-name">Género</label>
+                                        <input type="text" id="genre-name" placeholder="Novela, Poesía..." minlength="1" required>
+                                    </div>
                                 </div>
 
                                 <div class="modal__field modal__field--columns">
                                     <div class="modal__group">
                                         <label for="year-value">Año</label>
-                                        <input type="number" id="year-value" required>
+                                        <input type="number" id="year-value" placeholder="2026" min="1500" max="2099" required>
                                     </div>
-                                    <div class="modal__groyp">
-                                        <label for="copies-value">Ejemplares</label>
-                                        <input type="number" id="copies-value" required>
 
+                                    <div class="modal__group">
+                                        <label for="copies-value">Ejemplares</label>
+                                        <input type="number" id="copies-value" placeholder="1" min="1" required>
                                     </div>
+
                                     <div class="modal__group">
                                         <label for="available-books-value">Disponibles</label>
-                                        <input type="number" id="available-books-value" required>
-
+                                        <input type="number" id="available-books-value" placeholder="1" min="1" required>
                                     </div>
                                 </div>
 

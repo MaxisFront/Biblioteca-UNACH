@@ -15,6 +15,7 @@ dialog::backdrop {
 select, 
 input {
     width: 100%;
+    min-width: 5rem;
     padding: 0.2rem 0.8rem;
     background-color: var(--secondary-color);
     border: 1px solid var(--border-gray-color);
