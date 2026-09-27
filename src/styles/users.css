@@ -1,0 +1,12 @@
+.main__users {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    gap: 0.8rem;
+    background-color: var(--secondary-color);
+}
+.header {
+    display: flex;
+    justify-content: space-between;
+    padding: 1.8rem 2rem;
+}
