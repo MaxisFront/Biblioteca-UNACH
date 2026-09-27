@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../styles/styles.css">
     <link rel="stylesheet" href="../styles/users.css">
+    <link rel="stylesheet" href="../styles/modal.css">
     <script type="module" src="../components/sideabar.js"></script>
     <script type="module" src="../js/core.js"></script>
 
@@ -32,7 +33,7 @@
                 </header>
 
                 <dialog id="users-dialog">
-                    <div class="users__modal">
+                    <div class="modal">
                         <div class="modal__header">
                             <h2 class="modal__title">Nuevo Usuario</h2>
                             <button type="button" class="modal__button modal__button--close"
@@ -46,20 +47,24 @@
                                     <input type="text" id="user-name" placeholder="Juan Ortega" minlength="5" required>
                                 </div>
 
-                                <div class="modal__form">
+                                <div class="modal__field">
                                     <label for="user-mail" class="modal__label">Correo Electrónico</label>
                                     <input type="email" id="user-mail" placeholder="Juan@biblioteca.com" minlength="5"
                                         required>
                                 </div>
-                                <div class="modal__form">
+                                <div class="modal__field">
                                     <label for="user-tel" class="modal__label">Teléfono</label>
                                     <input type="number" id="user-tel" placeholder="961123456" minlength="10" required>
                                 </div>
-                                <div class="modal__form">
+                                <div class="modal__field">
                                     <label for="user-date" class="modal__label">Correo Electrónico</label>
-                                    <input type="datetime-local" id="user-date" placeholder="dd/mm/aa" required>
+                                    <input type="date" id="user-date" placeholder="dd/mm/aa" required>
                                 </div>
                             </form>
+                        </div>
+                        <div class="modal__actions">
+                            <button type="button" class="modal__button modal__button--cancel">Cancelar</button>
+                            <button type="submit" class="modal__button modal__button--submit" disabled>Enviar</button>
                         </div>
                     </div>
                 </dialog>
