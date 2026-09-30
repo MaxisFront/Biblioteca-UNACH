@@ -58,3 +58,63 @@ input:focus {
     background-color: var(--infill-gray-color);
     outline: none;
 }
+
+.users__table {
+    margin-top: 1em;
+    display: flex;
+    justify-content: center; 
+    padding: 1em;
+    overflow-y: auto;
+    max-height: 700px;
+    width: 100%;
+}
+
+.table {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1200px;
+    gap: 1em;
+}
+
+.user-profile {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 1em;
+    background-color: var(--bg-white);
+    padding: 1em 1.5em;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); 
+}
+
+.user__contact {
+    display: flex;
+    gap: 1.5em;
+    font-size: 0.9em;
+    color: #555;
+}
+
+.icon {
+    height: 1.5rem;
+    width: 1.5rem;
+    border: none;
+    cursor: pointer;
+    background: none;
+}
+
+.icon img {
+    width: 1.5rem;
+    height: 1.5rem;
+    padding: 0.15rem;
+    border-radius: 6px;
+    transition-duration: 0.25s;
+}
+
+.icon--return img:hover {
+    background-color: var(--active-light);
+}
+
+.icon--delete img:hover {
+    background-color: var(--danger-light);
+}
+
