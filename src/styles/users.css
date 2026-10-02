@@ -59,32 +59,34 @@ input:focus {
     outline: none;
 }
 
-.users__table {
+.users__list {
     margin-top: 1em;
     display: flex;
-    justify-content: center; 
+    flex-direction: column;
+    gap: 1em;
+    width: 100%;
+    max-width: 1200px;
+    margin-inline: auto;
     padding: 1em;
     overflow-y: auto;
     max-height: 700px;
-    width: 100%;
 }
 
-.table {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    max-width: 1200px;
-    gap: 1em;
-}
-
-.user-profile {
-    display: flex;
-    justify-content: space-between;
+.user {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
     align-items: center;
     border-radius: 1em;
     background-color: var(--bg-white);
     padding: 1em 1.5em;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.user__info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3em;
+    justify-self: start;
 }
 
 .user__contact {
@@ -92,6 +94,31 @@ input:focus {
     gap: 1.5em;
     font-size: 0.9em;
     color: #555;
+}
+
+.user__status {
+    width: fit-content;
+    font-size: 0.75em;
+    padding: 0.15em 0.6em;
+    border-radius: 999px;
+}
+
+.user__status--activo {
+    background-color: var(--active-light);
+    color: var(--active, #2e7d32);
+}
+
+.user__fecha-registro {
+    justify-self: center;
+    font-size: 0.9em;
+    color: #555;
+    white-space: nowrap;
+}
+
+.user__actions {
+    display: flex;
+    gap: 0.75em;
+    justify-self: end;
 }
 
 .icon {
@@ -110,11 +137,10 @@ input:focus {
     transition-duration: 0.25s;
 }
 
-.icon--return img:hover {
+.icon--edit img:hover {
     background-color: var(--active-light);
 }
 
 .icon--delete img:hover {
     background-color: var(--danger-light);
 }
-
