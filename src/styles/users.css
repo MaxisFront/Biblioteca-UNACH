@@ -81,6 +81,12 @@ input:focus {
     background-color: var(--bg-white);
     padding: 1em 1.5em;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    transition: 0.3s;
+}
+
+.user:hover {
+    transform: scale(1.005);
+    box-shadow: 0 0.005rem 0.02rem 0 var(--text-gray);
 }
 
 .user__info {
