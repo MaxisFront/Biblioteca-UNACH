@@ -73,9 +73,10 @@ input:focus {
 }
 
 .user {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    display: flex;
+    justify-content: space-between;
     align-items: center;
+    gap: 0.5rem;
     border-radius: 1em;
     background-color: var(--bg-white);
     padding: 1em 1.5em;
