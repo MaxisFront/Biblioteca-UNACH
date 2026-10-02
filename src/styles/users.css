@@ -127,7 +127,10 @@ input:focus {
 
 .user__status--activo {
     background-color: var(--active-light);
-    color: var(--active, #2e7d32);
+}
+
+.user__status--desactivado {
+    background-color: var(--border-gray-color);
 }
 
 .user__fecha-registro {
