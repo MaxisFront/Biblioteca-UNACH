@@ -5,6 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../styles/styles.css">
+    <link rel="stylesheet" href="../styles/users.css">
+    <link rel="stylesheet" href="../styles/modal.css">
+    <script type="module" src="../components/sideabar.js"></script>
+    <script type="module" src="../js/core.js"></script>
+
     <title>Users</title>
 </head>
 
@@ -12,7 +17,7 @@
     <main>
         <div class="app__layout">
             <nav class="main__menu">
-
+                <mi-sidebar active-item="users"></mi-sidebar>
             </nav>
 
             <section class="main__users">
@@ -28,7 +33,7 @@
                 </header>
 
                 <dialog id="users-dialog">
-                    <div class="users__modal">
+                    <div class="modal">
                         <div class="modal__header">
                             <h2 class="modal__title">Nuevo Usuario</h2>
                             <button type="button" class="modal__button modal__button--close"
@@ -42,23 +47,113 @@
                                     <input type="text" id="user-name" placeholder="Juan Ortega" minlength="5" required>
                                 </div>
 
-                                <div class="modal__form">
+                                <div class="modal__field">
                                     <label for="user-mail" class="modal__label">Correo Electrónico</label>
                                     <input type="email" id="user-mail" placeholder="Juan@biblioteca.com" minlength="5"
                                         required>
                                 </div>
-                                <div class="modal__form">
-                                    <label for="user-tel" class="modal__label">Teléfomo</label>
+
+                                <div class="modal__field">
+                                    <label for="user-tel" class="modal__label">Teléfono</label>
                                     <input type="number" id="user-tel" placeholder="961123456" minlength="10" required>
                                 </div>
-                                <div class="modal__form">
-                                    <label for="user-date" class="modal__label">Correo Electrónico</label>
-                                    <input type="datetime-local" id="user-date" placeholder="dd/mm/aa" required>
+
+                                <div class="modal__actions">
+                                    <button type="button" class="modal__button modal__button--cancel">Cancelar</button>
+                                    <button type="submit" class="modal__button modal__button--submit"
+                                        disabled>Enviar</button>
                                 </div>
                             </form>
                         </div>
                     </div>
                 </dialog>
+
+                <div class="search-bar">
+                    <input type="text" placeholder="Buscar por nombre o Teléfono">
+                </div>
+
+                <div class="users__list">
+
+                    <div class="user">
+                        <div class="user__info">
+                            <div class="user__title">
+                                <p class="user__name">María Fernández</p>
+                                <span class="user__status user__status--activo">Activo</span>
+                            </div>
+
+                            <div class="user__contact">
+                                <p class="user__mail">maria.fernandez@email.com</p>
+                                <p class="user__tel">+52 934 323 2342</p>
+                            </div>
+
+                        </div>
+
+                        <p class="user__fecha-registro">Desde 28/09/26</p>
+
+                        <div class="user__actions">
+                            <button class="icon icon--edit" title="Editar usuario" aria-label="Editar">
+                                <img src="../assets/icons/Edit.svg" alt="">
+                            </button>
+                            <button class="icon icon--delete" title="Eliminar usuario" aria-label="Eliminar">
+                                <img src="../assets/icons/Trash.svg" alt="">
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="user">
+                        <div class="user__info">
+                            <div class="user__title">
+                                <p class="user__name">Roberto James</p>
+                                <span class="user__status user__status--activo">Activo</span>
+                            </div>
+
+                            <div class="user__contact">
+                                <p class="user__mail">james.rob@email.com</p>
+                                <p class="user__tel">+52 934 232 2342</p>
+                            </div>
+
+                        </div>
+
+                        <p class="user__fecha-registro">Desde 22/09/26</p>
+
+                        <div class="user__actions">
+                            <button class="icon icon--edit" title="Editar usuario" aria-label="Editar">
+                                <img src="../assets/icons/Edit.svg" alt="">
+                            </button>
+                            <button class="icon icon--delete" title="Eliminar usuario" aria-label="Eliminar">
+                                <img src="../assets/icons/Trash.svg" alt="">
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="user">
+                        <div class="user__info">
+                            <div class="user__title">
+                                <p class="user__name">Jorge Orantes</p>
+                                <span class="user__status user__status--desactivado">Desactivado</span>
+                            </div>
+
+                            <div class="user__contact">
+                                <p class="user__mail">jorge.orantes@email.com</p>
+                                <p class="user__tel">+52 938 323 2313</p>
+                            </div>
+
+                        </div>
+
+                        <p class="user__fecha-registro">Desde 12/07/26</p>
+
+                        <div class="user__actions">
+                            <button class="icon icon--edit" title="Editar usuario" aria-label="Editar">
+                                <img src="../assets/icons/Edit.svg" alt="">
+                            </button>
+                            <button class="icon icon--delete" title="Eliminar usuario" aria-label="Eliminar">
+                                <img src="../assets/icons/Trash.svg" alt="">
+                            </button>
+                        </div>
+                    </div>
+
+
+                </div>
             </section>
         </div>
     </main>
