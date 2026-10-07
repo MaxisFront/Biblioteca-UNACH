@@ -60,20 +60,20 @@ button {
 }
 
 #email,
-#contraseña {
+#password {
     padding: 0.5rem;
     outline: none;
     transition-duration: 0.2s;
 }
 
 #email:focus,
-#contraseña:focus {
+#password:focus {
     border: 0.1rem solid #d0cac3;
     background-color: #f7f1f1;
 }
 
 #email:active,
-#contraseña:active {
+#password:active {
     transform: scale(0.98)
 }
 
