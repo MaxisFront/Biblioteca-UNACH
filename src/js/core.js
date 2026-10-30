@@ -3,10 +3,13 @@ function setupModal(dialogId, openBtnSelector) {
     const dialog = document.getElementById(dialogId);
     /** @type {HTMLButtonElement} */
     const newBookBtn = document.querySelector(openBtnSelector);
+
+    if (!dialog) return
+
     /** @type {HTMLButtonElement} */
-    const closeBtn = document.querySelector(".modal__button--close");
+    const closeBtn = dialog.querySelector(".modal__button--close");
     /** @type {HTMLButtonElement} */
-    const cancelBtn = document.querySelector(".modal__button--cancel");
+    const cancelBtn = dialog.querySelector(".modal__button--cancel");
 
     if (newBookBtn && dialog) {
         newBookBtn.addEventListener("click", () => { dialog.showModal() })
@@ -27,6 +30,9 @@ function setupModal(dialogId, openBtnSelector) {
     }
 }
 
-setupModal("loan-dialog", ".header__button .button__add")
-setupModal("books-dialog", ".header__button .button__add")
-setupModal("users-dialog", ".header__button .button__add")
+setupModal("loan-dialog", ".header__button .button__add");
+setupModal("books-dialog", ".header__button .button__add");
+setupModal("users-dialog", ".header__button .button__add");
+setupModal("author-dialog", ".author__button .button__add");
+setupModal("editorial-dialog", ".editorial__button .button__add");
+
