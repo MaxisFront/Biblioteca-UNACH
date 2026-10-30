@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../styles/styles.css">
     <link rel="stylesheet" href="../styles/dashboard.css">
+    <link rel="stylesheet" href="../styles/modal.css">
     <script type="module" src="../components/sideabar.js"></script>
+    <script type="module" src="../js/core.js"></script>
 
     <title>Dashboard</title>
 </head>
@@ -27,15 +29,65 @@
                     </div>
                     <div class="dashboard__buttons">
 
-                        <div class="header__button">
+                        <div class="author__button">
                             <button class="button__add"><span class="button__icon">+</span> Crear Autor</button>
                         </div>
 
-                        <div class="header__button">
+                        <div class="editorial__button">
                             <button class="button__add"><span class="button__icon">+</span> Crear Editorial</button>
                         </div>
                     </div>
                 </header>
+
+                <dialog id="author-dialog">
+                    <div class="modal">
+                        <div class="modal__header">
+                            <h2 class="modal__title">Nuevo Autor</h2>
+                            <button type="button" class="modal__button modal__button--close"
+                                aria-label="Cerrar">&times;</button>
+                        </div>
+
+                        <div class="modal__form">
+                            <form id="author-form">
+                                <div class="modal__field">
+                                    <label for="author-name" class="modal__label">Nombre del Autor</label>
+                                    <input type="text" id="author-name" placeholder="Gabriel García Márquez"
+                                        minlength="3" required>
+                                </div>
+
+                                <div class="modal__actions">
+                                    <button type="button" class="modal__button modal__button--cancel">Cancelar</button>
+                                    <button type="submit" class="modal__button modal__button--submit">Enviar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </dialog>
+
+                <dialog id="editorial-dialog">
+                    <div class="modal">
+                        <div class="modal__header">
+                            <h2 class="modal__title">Nueva Editorial</h2>
+                            <button type="button" class="modal__button modal__button--close"
+                                aria-label="Cerrar">&times;</button>
+                        </div>
+
+                        <div class="modal__form">
+                            <form id="editorial-form">
+                                <div class="modal__field">
+                                    <label for="editorial-name" class="modal__label">Nombre de la Editorial</label>
+                                    <input type="text" id="editorial-name" placeholder="Editorial Alfaguara"
+                                        minlength="3" required>
+                                </div>
+
+                                <div class="modal__actions">
+                                    <button type="button" class="modal__button modal__button--cancel">Cancelar</button>
+                                    <button type="submit" class="modal__button modal__button--submit">Enviar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </dialog>
 
                 <div class="dashboard__statistics">
                     <div class="dashboard__card">
