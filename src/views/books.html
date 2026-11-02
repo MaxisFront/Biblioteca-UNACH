@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../styles/books.css">
     <script type="module" src="../components/sideabar.js"></script>
     <link rel="stylesheet" href="../styles/modal.css">
+    <link rel="stylesheet" href="../styles/header-actions.css">
     <script type="module" src="../components/sideabar.js"></script>
     <script type="module" src="../js/core.js"></script>
 
@@ -30,11 +31,30 @@
                     </div>
 
                     <div class="header__button">
-                        <button class="button__add"> <span class="button__icon">+</span> Nuevo Libro</button>
+    <div class="dropdown">
+        <button type="button" class="button__add dropdown__toggle" aria-haspopup="menu" aria-expanded="false">
+            <span class="button__icon">+</span> Añadir <span class="dropdown__caret" aria-hidden="true"></span>
+        </button>
+        <ul class="dropdown__menu" role="menu">
+            <li role="none"><button type="button" role="menuitem" class="dropdown__item" data-open="author-add-dialog">Nuevo autor</button></li>
+            <li role="none"><button type="button" role="menuitem" class="dropdown__item" data-open="editorial-add-dialog">Nueva editorial</button></li>
+            <li role="none"><button type="button" role="menuitem" class="dropdown__item" data-open="book-add-dialog">Nuevo libro</button></li>
+        </ul>
+    </div>
+    <div class="dropdown">
+        <button type="button" class="button__edit dropdown__toggle" aria-haspopup="menu" aria-expanded="false">
+            <span class="button__icon button__icon--edit" aria-hidden="true"></span> Editar <span class="dropdown__caret" aria-hidden="true"></span>
+        </button>
+        <ul class="dropdown__menu" role="menu">
+            <li role="none"><button type="button" role="menuitem" class="dropdown__item" data-open="author-edit-dialog">Editar autor</button></li>
+            <li role="none"><button type="button" role="menuitem" class="dropdown__item" data-open="editorial-edit-dialog">Editar editorial</button></li>
+            <li role="none"><button type="button" role="menuitem" class="dropdown__item" data-open="book-edit-dialog">Editar libro</button></li>
+        </ul>
+    </div>
                     </div>
                 </header>
 
-                <dialog id="books-dialog">
+                <dialog id="book-add-dialog">
                     <div class="modal">
 
                         <div class="modal__header">
@@ -43,7 +63,7 @@
                         </div>
 
                         <div class="modal__form">
-                            <form id="loan-form">
+                            <form id="book-form">
 
                                 <div class="modal__field">
                                     <label for="book-name" class="modal__label">Título</label>
@@ -87,6 +107,178 @@
                                 <div class="modal__actions">
                                     <button type="button" class="modal__button modal__button--cancel">Cancelar</button>
                                     <button type="submit" class="modal__button modal__button--submit" disabled>Enviar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </dialog>
+
+                <dialog id="author-add-dialog">
+                    <div class="modal">
+                        <div class="modal__header">
+                            <h2 class="modal__title">Nuevo Autor</h2>
+                            <button type="button" class="modal__button modal__button--close" aria-label="Cerrar">&times;</button>
+                        </div>
+
+                        <div class="modal__form">
+                            <form id="author-add-form">
+                            <div class="modal__field">
+                                <label for="author-add-name" class="modal__label">Nombre del Autor</label>
+                                <input type="text" id="author-add-name" placeholder="Gabriel García Márquez" minlength="3" required>
+                            </div>
+
+                                <div class="modal__actions">
+                                    <button type="button" class="modal__button modal__button--cancel">Cancelar</button>
+                                    <button type="submit" class="modal__button modal__button--submit">Enviar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </dialog>
+
+                <dialog id="editorial-add-dialog">
+                    <div class="modal">
+                        <div class="modal__header">
+                            <h2 class="modal__title">Nueva Editorial</h2>
+                            <button type="button" class="modal__button modal__button--close" aria-label="Cerrar">&times;</button>
+                        </div>
+
+                        <div class="modal__form">
+                            <form id="editorial-add-form">
+                            <div class="modal__field">
+                                <label for="editorial-add-name" class="modal__label">Nombre de la Editorial</label>
+                                <input type="text" id="editorial-add-name" placeholder="Editorial Alfaguara" minlength="3" required>
+                            </div>
+
+                                <div class="modal__actions">
+                                    <button type="button" class="modal__button modal__button--cancel">Cancelar</button>
+                                    <button type="submit" class="modal__button modal__button--submit">Enviar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </dialog>
+
+                <dialog id="author-edit-dialog">
+                    <div class="modal">
+                        <div class="modal__header">
+                            <h2 class="modal__title">Editar Autor</h2>
+                            <button type="button" class="modal__button modal__button--close" aria-label="Cerrar">&times;</button>
+                        </div>
+
+                        <div class="modal__form">
+                            <form id="author-edit-form">
+                            <div class="modal__field">
+                                <label for="author-edit-select" class="modal__label">Autor a editar</label>
+                                <select id="author-edit-select" required>
+                                <option value="" disabled selected>Seleccionar autor...</option>
+                                <option value="1">George Orwell</option>
+                                <option value="2">Gabriel García Márquez</option>
+                            </select>
+                            </div>
+
+                            <div class="modal__field">
+                                <label for="author-edit-name" class="modal__label">Nombre del Autor</label>
+                                <input type="text" id="author-edit-name" placeholder="Gabriel García Márquez" minlength="3" required>
+                            </div>
+
+                                <div class="modal__actions">
+                                    <button type="button" class="modal__button modal__button--cancel">Cancelar</button>
+                                    <button type="submit" class="modal__button modal__button--submit" disabled>Guardar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </dialog>
+
+                <dialog id="editorial-edit-dialog">
+                    <div class="modal">
+                        <div class="modal__header">
+                            <h2 class="modal__title">Editar Editorial</h2>
+                            <button type="button" class="modal__button modal__button--close" aria-label="Cerrar">&times;</button>
+                        </div>
+
+                        <div class="modal__form">
+                            <form id="editorial-edit-form">
+                            <div class="modal__field">
+                                <label for="editorial-edit-select" class="modal__label">Editorial a editar</label>
+                                <select id="editorial-edit-select" required>
+                                <option value="" disabled selected>Seleccionar editorial...</option>
+                                <option value="1">Editorial Alfaguara</option>
+                                <option value="2">Penguin Random House</option>
+                            </select>
+                            </div>
+
+                            <div class="modal__field">
+                                <label for="editorial-edit-name" class="modal__label">Nombre de la Editorial</label>
+                                <input type="text" id="editorial-edit-name" placeholder="Editorial Alfaguara" minlength="3" required>
+                            </div>
+
+                                <div class="modal__actions">
+                                    <button type="button" class="modal__button modal__button--cancel">Cancelar</button>
+                                    <button type="submit" class="modal__button modal__button--submit" disabled>Guardar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </dialog>
+
+                <dialog id="book-edit-dialog">
+                    <div class="modal">
+                        <div class="modal__header">
+                            <h2 class="modal__title">Editar libro</h2>
+                            <button type="button" class="modal__button modal__button--close" aria-label="Cerrar">&times;</button>
+                        </div>
+
+                        <div class="modal__form">
+                            <form id="book-edit-form">
+                            <div class="modal__field">
+                                <label for="book-edit-select" class="modal__label">Libro a editar</label>
+                                <select id="book-edit-select" required>
+                                <option value="" disabled selected>Seleccionar libro...</option>
+                                <option value="1">1984</option>
+                                <option value="2">El Principito</option>
+                                <option value="3">Metro 2033</option>
+                            </select>
+                            </div>
+
+                            <div class="modal__field">
+                                <label for="book-edit-name" class="modal__label">Título</label>
+                                <input type="text" id="book-edit-name" placeholder="Título del libro..." minlength="1" required>
+                            </div>
+
+                            <div class="modal__field">
+                                <label for="book-edit-author" class="modal__label">Autor</label>
+                                <input type="text" id="book-edit-author" placeholder="Nombre del autor..." minlength="1" required>
+                            </div>
+
+                            <div class="modal__field modal__field--columns">
+                                <div class="modal__group">
+                                    <label for="book-edit-isbn" class="modal__label">ISBN</label>
+                                    <input type="text" id="book-edit-isbn" placeholder="978-...-....-..-." minlength="17" maxlength="17" required>
+                                </div>
+
+                                <div class="modal__group">
+                                    <label for="book-edit-genre" class="modal__label">Género</label>
+                                    <input type="text" id="book-edit-genre" placeholder="Novela, Poesía..." minlength="1" required>
+                                </div>
+                            </div>
+
+                            <div class="modal__field modal__field--columns">
+                                <div class="modal__group">
+                                    <label for="book-edit-year" class="modal__label">Año</label>
+                                    <input type="number" id="book-edit-year" placeholder="2026" min="1500" max="2099" required>
+                                </div>
+
+                                <div class="modal__group">
+                                    <label for="book-edit-copies" class="modal__label">Ejemplares</label>
+                                    <input type="number" id="book-edit-copies" placeholder="1" min="1" required>
+                                </div>
+                            </div>
+
+                                <div class="modal__actions">
+                                    <button type="button" class="modal__button modal__button--cancel">Cancelar</button>
+                                    <button type="submit" class="modal__button modal__button--submit" disabled>Guardar</button>
                                 </div>
                             </form>
                         </div>
