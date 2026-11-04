@@ -151,17 +151,17 @@ button {
     margin: auto 3rem;
   }
 
-    .main__image {
-        display: block;
-        background-image: url('../assets/images/libreria-unach-1.jpg');
-        height: 100vh;
-        background-size: 100%;
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-color: var(--overlay-color);
-        background-blend-mode: overlay;
-    }
+  .main__image {
+    display: block;
+    background-image: url('../assets/images/libreria-unach-1.jpg');
+    height: 100vh;
+    background-size: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: var(--overlay-color);
+    background-blend-mode: overlay;
+  }
 
   .main__icon {
     padding-block: 1em;
