@@ -155,7 +155,7 @@ button {
 
     .main__image {
         display: block;
-        background-image: url('/src/assets/images/libreria-unach-1.jpg');
+        background-image: url('../assets/images/libreria-unach-1.jpg');
         height: 100vh;
         background-size: 100%;
         background-size: cover;
