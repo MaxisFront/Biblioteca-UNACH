@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./src/styles/styles.css">
     <link rel="stylesheet" href="./src/styles/login.css">
+    <script type="module" src="./src/services/auth/auth.js"></script>
     <title>Panel de Inicio de Sesión</title>
 </head>
 
@@ -62,17 +63,18 @@
                     <p class="form__description">Utilice sus credenciales de administrador</p>
                 </div>
 
-                <form class="form__container" action="">
+                <form class="form__container">
                     <div class="form__container--email">
                         <label class="form__label-text form__email" for="email">Correo Electronico</label>
                         <input class="form__input form__mail" type="email" id="email" placeholder="example@example.com">
                     </div>
                     <div class="form__container--password">
-                        <label class="form__label-text container__password" for="contraseña">Contraseña</label>
-                        <input class="form__input form__password" type="password" id="contraseña"
+                        <label class="form__label-text container__password" for="password">Contraseña</label>
+                        <input class="form__input form__password" type="password" id="password"
                             placeholder="***********">
                     </div>
-                    <button class="form__button--send" type="button">Iniciar Sesión</button>
+                    <span class="form__error"></span>
+                    <button class="form__button--send" type="submit">Iniciar Sesión</button>
                 </form>
             </div>
         </section>

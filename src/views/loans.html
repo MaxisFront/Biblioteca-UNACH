@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="../styles/styles.css">
     <link rel="stylesheet" href="../styles/loans.css">
     <link rel="stylesheet" href="../styles/modal.css">
+    <link rel="stylesheet" href="../styles/header-actions.css">
     <script type="module" src="../components/sideabar.js"></script>
     <script type="module" src="../js/core.js"></script>
 
@@ -30,13 +31,14 @@
                     </div>
 
                     <div class="header__button">
-                        <button class="button__add"> <span class="button__icon">+</span> Nuevo Préstamo</button>
+                        <button type="button" class="button__add" data-open="loan-add-dialog"><span class="button__icon">+</span> Nuevo Préstamo</button>
+                        <button type="button" class="button__edit" data-open="loan-edit-dialog"><span class="button__icon button__icon--edit" aria-hidden="true"></span> Editar Préstamo</button>
                     </div>
                 </header>
 
 
 
-                <dialog id="loan-dialog">
+                <dialog id="loan-add-dialog">
                     <div class="modal">
 
                         <div class="modal__header">
@@ -74,6 +76,44 @@
                                 <div class="modal__actions">
                                     <button type="button" class="modal__button modal__button--cancel">Cancelar</button>
                                     <button type="submit" class="modal__button modal__button--submit" disabled>Enviar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </dialog>
+
+                <dialog id="loan-edit-dialog">
+                    <div class="modal">
+                        <div class="modal__header">
+                            <h2 class="modal__title">Editar préstamo</h2>
+                            <button type="button" class="modal__button modal__button--close" aria-label="Cerrar">&times;</button>
+                        </div>
+
+                        <div class="modal__form">
+                            <form id="loan-edit-form">
+                            <div class="modal__field">
+                                <label for="loan-edit-select" class="modal__label">Préstamo a editar</label>
+                                <select id="loan-edit-select" required>
+                                <option value="" disabled selected>Seleccionar préstamo...</option>
+                                <option value="1">Apocalypse Now — Selene Gómez</option>
+                                <option value="2">1984 — Jonh Conrad</option>
+                                <option value="3">El señor de las Moscas — James Martínez</option>
+                            </select>
+                            </div>
+
+                            <div class="modal__field">
+                                <label for="loan-edit-due-date" class="modal__label">Fecha límite</label>
+                                <input type="date" id="loan-edit-due-date" required>
+                            </div>
+
+                            <div class="modal__field">
+                                <label for="loan-edit-return-date" class="modal__label">Fecha de entrega (opcional)</label>
+                                <input type="date" id="loan-edit-return-date">
+                            </div>
+
+                                <div class="modal__actions">
+                                    <button type="button" class="modal__button modal__button--cancel">Cancelar</button>
+                                    <button type="submit" class="modal__button modal__button--submit" disabled>Guardar</button>
                                 </div>
                             </form>
                         </div>
@@ -214,6 +254,7 @@
                             </div>
                         </div>
                     </div>
+                </div>
             </section>
         </div>
     </main>

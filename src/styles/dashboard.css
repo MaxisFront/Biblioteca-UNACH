@@ -7,9 +7,39 @@
 }
 
 .dashboard__header {
+    display: flex;
     padding-inline: 1em;
     padding-block: 1em;
     margin-left: 1rem;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dashboard__buttons{
+    display: flex;
+    gap: 2em;
+    margin: 1em;
+}
+
+.button__add {
+    border: 1px solid var(--secondary-color);
+    padding: 0.6rem 0.8rem;
+    border-radius: 0.8rem;
+    color: var(--text-light);
+    font-weight: 500;
+    background-color: var(--primary-color);
+    transition-duration: 0.25s;
+    will-change: transform;
+}
+
+.button__add:hover {
+    background-color: var(--active-medium);
+    transform: scale(1.025);
+}
+
+.button__add:active {
+    background-color: var(--active-color);
+    transform: scale(0.975);
 }
 
 .dashboard__card {
@@ -28,7 +58,7 @@
     transform: scale(1.04);
 }
 
-.dashboard__title {
+.dashboard__text {
     margin-top: 1rem
 }
 

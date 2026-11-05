@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="../styles/styles.css">
     <link rel="stylesheet" href="../styles/users.css">
     <link rel="stylesheet" href="../styles/modal.css">
+    <link rel="stylesheet" href="../styles/header-actions.css">
     <script type="module" src="../components/sideabar.js"></script>
     <script type="module" src="../js/core.js"></script>
 
@@ -28,11 +29,12 @@
                     </div>
 
                     <div class="header__button">
-                        <button class="button__add"><span class="button__icon">+</span> Nuevo Usuario</button>
+                        <button type="button" class="button__add" data-open="user-add-dialog"><span class="button__icon">+</span> Nuevo Usuario</button>
+                        <button type="button" class="button__edit" data-open="user-edit-dialog"><span class="button__icon button__icon--edit" aria-hidden="true"></span> Editar Usuario</button>
                     </div>
                 </header>
 
-                <dialog id="users-dialog">
+                <dialog id="user-add-dialog">
                     <div class="modal">
                         <div class="modal__header">
                             <h2 class="modal__title">Nuevo Usuario</h2>
@@ -55,13 +57,64 @@
 
                                 <div class="modal__field">
                                     <label for="user-tel" class="modal__label">Teléfono</label>
-                                    <input type="number" id="user-tel" placeholder="961123456" minlength="10" required>
+                                    <input type="tel" id="user-tel" inputmode="numeric" placeholder="9611234567" pattern="[0-9]{10}" maxlength="10" required>
                                 </div>
 
                                 <div class="modal__actions">
                                     <button type="button" class="modal__button modal__button--cancel">Cancelar</button>
                                     <button type="submit" class="modal__button modal__button--submit"
                                         disabled>Enviar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </dialog>
+
+                <dialog id="user-edit-dialog">
+                    <div class="modal">
+                        <div class="modal__header">
+                            <h2 class="modal__title">Editar usuario</h2>
+                            <button type="button" class="modal__button modal__button--close" aria-label="Cerrar">&times;</button>
+                        </div>
+
+                        <div class="modal__form">
+                            <form id="user-edit-form">
+                            <div class="modal__field">
+                                <label for="user-edit-select" class="modal__label">Usuario a editar</label>
+                                <select id="user-edit-select" required>
+                                <option value="" disabled selected>Seleccionar usuario...</option>
+                                <option value="1">María Fernández</option>
+                                <option value="2">Roberto James</option>
+                                <option value="3">Jorge Orantes</option>
+                            </select>
+                            </div>
+
+                            <div class="modal__field">
+                                <label for="user-edit-name" class="modal__label">Nombre Completo</label>
+                                <input type="text" id="user-edit-name" placeholder="Juan Ortega" minlength="5" required>
+                            </div>
+
+                            <div class="modal__field">
+                                <label for="user-edit-mail" class="modal__label">Correo Electrónico</label>
+                                <input type="email" id="user-edit-mail" placeholder="Juan@biblioteca.com" minlength="5" required>
+                            </div>
+
+                            <div class="modal__field">
+                                <label for="user-edit-tel" class="modal__label">Teléfono</label>
+                                <input type="tel" id="user-edit-tel" inputmode="numeric" placeholder="9611234567" pattern="[0-9]{10}" maxlength="10" required>
+                            </div>
+
+                            <div class="modal__field">
+                                <label for="user-edit-status" class="modal__label">Estado</label>
+                                <select id="user-edit-status" required>
+                                <option value="activo">Activo</option>
+                                <option value="desactivado">Desactivado</option>
+                            </select>
+                            </div>
+
+                                <div class="modal__actions">
+                                    <button type="button" class="modal__button modal__button--cancel">Cancelar</button>
+                                    <button type="submit" class="modal__button modal__button--submit" disabled>Guardar</button>
                                 </div>
                             </form>
                         </div>
