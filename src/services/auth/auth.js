@@ -1,4 +1,4 @@
-import { CONFIG } from "../../js/config.js";  
+import { CONFIG } from "../../js/config.js";
 
 function errorMessage(mensaje) {
     const errorMessage = document.querySelector(".form__error")
@@ -28,8 +28,9 @@ async function iniciarSesion(e) {
             form.reset();
             return;
         }
-
         sessionStorage.setItem("admin", data.nombreAdministrador);
+        form.reset();
+
         window.location.href = "./src/views/dashboard.html";
     } catch (error) {
         errorMessage("El servidor no responde");
