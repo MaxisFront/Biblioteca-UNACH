@@ -1,345 +1,275 @@
 import { CONFIG } from "../js/config.js";
+import {
+  ESTADOS_PRESTAMO,
+  escaparHtml,
+  estadoPrestamo,
+  fetchConTimeout,
+  formatearFecha,
+  leerError,
+  mensajeError,
+  ordenarRecientes,
+} from "../js/utils.js";
 
+const API_PRESTAMOS = `${CONFIG.API_URL}/prestamos`;
 const API_LIBROS = `${CONFIG.API_URL}/libros`;
-const API_AUTORES = `${CONFIG.API_URL}/autores`;
-const API_EDITORIALES = `${CONFIG.API_URL}/editoriales`;
+const API_USUARIOS = `${CONFIG.API_URL}/users`;
+const ESTADOS_USUARIO_INACTIVO = ["desactivado", "inactivo"];
 
-let librosCache = [];
+// ==========================================
+// 1. CARGAR Y RENDERIZAR TABLA DE PRÉSTAMOS
+// ==========================================
 
-// Helper con timeout para evitar peticiones infinitas
-async function fetchConTimeout(resource, options = {}, timeout = 5000) {
-    const controller = new AbortController();
-    const id = setTimeout(() => controller.abort(), timeout);
-    try {
-        const response = await fetch(resource, { ...options, signal: controller.signal });
-        clearTimeout(id);
-        return response;
-    } catch (error) {
-        clearTimeout(id);
-        throw error;
-    }
+function pintarMensaje(tabla, texto) {
+  tabla.querySelectorAll(".table__row").forEach((fila) => fila.remove());
+
+  const fila = document.createElement("div");
+  fila.className = "table__row";
+  fila.innerHTML = `<div class="table__cell" style="grid-column: 1 / -1; text-align: center;">${texto}</div>`;
+  tabla.appendChild(fila);
+}
+
+function actualizarContador(prestamos) {
+  const descripcion = document.querySelector(".header__description");
+  if (!descripcion) return;
+
+  const activos = prestamos.filter(
+    (p) => estadoPrestamo(p) !== "DEVUELTO",
+  ).length;
+  descripcion.textContent =
+    activos === 1 ? "1 préstamo activo" : `${activos} préstamos activos`;
+}
+
+function crearFila(prestamo) {
+  const estado = ESTADOS_PRESTAMO[estadoPrestamo(prestamo)];
+  const botonDevolver = prestamo.fechaDevolucionReal
+    ? ""
+    : `<button type="button" class="icon icon--return" title="Devolver libro" aria-label="Devolver">
+               <img src="../assets/icons/Return.svg" alt="">
+           </button>`;
+
+  const fila = document.createElement("div");
+  fila.className = "table__row";
+  fila.innerHTML = `
+        <div class="table__cell table__cell--title">${escaparHtml(prestamo.tituloLibro)}</div>
+        <div class="table__cell table__cell--username">${escaparHtml(prestamo.nombreUsuario)}</div>
+        <div class="table__cell table__cell--loan-date">${formatearFecha(prestamo.fechaPrestamo)}</div>
+        <div class="table__cell table__cell--due-date">${formatearFecha(prestamo.fechaDevolucionAsignada)}</div>
+        <div class="table__cell table__cell--return-date">${formatearFecha(prestamo.fechaDevolucionReal)}</div>
+        <div class="table__cell table__cell--status">
+            <span class="status ${estado.clase}">${estado.texto}</span>
+        </div>
+        <div class="table__row-actions">${botonDevolver}</div>
+    `;
+
+  const boton = fila.querySelector(".icon--return");
+  if (boton)
+    boton.addEventListener("click", () => registrarDevolucion(prestamo));
+
+  return fila;
+}
+
+async function cargarTablaPrestamos() {
+  const tabla = document.querySelector(".table");
+  if (!tabla) return;
+
+  let prestamos;
+  try {
+    const response = await fetchConTimeout(API_PRESTAMOS);
+    if (!response.ok) throw new Error(await leerError(response));
+    prestamos = ordenarRecientes(await response.json());
+  } catch (error) {
+    console.error("Error al cargar los préstamos:", error);
+    pintarMensaje(tabla, "No se pudieron cargar los préstamos.");
+    return;
+  }
+
+  actualizarContador(prestamos);
+
+  if (prestamos.length === 0) {
+    pintarMensaje(tabla, "No hay préstamos registrados.");
+    return;
+  }
+
+  tabla.querySelectorAll(".table__row").forEach((fila) => fila.remove());
+  prestamos.forEach((prestamo) => tabla.appendChild(crearFila(prestamo)));
 }
 
 // ==========================================
-// 1. CARGAR Y RENDERIZAR TABLA DE LIBROS (Adaptado a tu DTO de Java)
+// 2. DEVOLUCIÓN
 // ==========================================
 
-async function cargarYRenderizarTablaLibros() {
-    const container = document.querySelector(".table");
-    if (!container) return;
+async function registrarDevolucion(prestamo) {
+  const confirmado = confirm(
+    `¿Registrar la devolución de "${prestamo.tituloLibro}" de ${prestamo.nombreUsuario}?`,
+  );
+  if (!confirmado) return;
 
-    // Guardamos la cabecera para no perderla al limpiar
-    const headerRow = container.querySelector(".table__header-row");
+  try {
+    const response = await fetchConTimeout(
+      `${API_PRESTAMOS}/${prestamo.idPrestamo}/devolucion`,
+      { method: "PUT" },
+    );
+    if (!response.ok) throw new Error(await leerError(response));
 
-    try {
-        const response = await fetchConTimeout(API_LIBROS);
-        if (!response.ok) throw new Error("Error al obtener los libros");
-
-        const libros = await response.json();
-        librosCache = libros; // Actualizamos la caché general
-
-        // Limpiamos el contenedor manteniendo la cabecera
-        container.innerHTML = "";
-        if (headerRow) {
-            container.appendChild(headerRow);
-        }
-
-        if (!libros || libros.length === 0) {
-            const mensajeVacio = document.createElement("div");
-            mensajeVacio.className = "table__row";
-            mensajeVacio.innerHTML = `<div class="table__cell" style="grid-column: 1 / -1; text-align: center;">No hay libros registrados.</div>`;
-            container.appendChild(mensajeVacio);
-            return;
-        }
-
-        libros.forEach(libro => {
-            // Mapeo exacto basado en tu LibroResponseDTO de Spring Boot:
-            const titulo = libro.titulo || "Sin título";
-            const autor = libro.autor || "Desconocido"; // Ya viene como String desde Java
-            const genero = libro.genero || "Sin género";
-            
-            // Si tu DTO no tiene año, se evalúa de forma segura
-            const anio = libro.anioPublicacion || libro.anio || "N/A"; 
-            
-            // Cantidades provistas por los count() de tus repositorios en Java
-            const ejemplares = libro.cantidadEjemplares ?? 0;
-            const disponibles = libro.cantidadDisponibles ?? 0;
-
-            const claseDisponibilidad = disponibles > 0 ? "disponibility--active" : "disponibility--unavailable";
-
-            const row = document.createElement("div");
-            row.className = "table__row";
-
-            row.innerHTML = `
-                <div class="table__cell table__cell--title">${titulo}</div>
-                <div class="table__cell table__cell--author">${autor}</div>
-                <div class="table__cell table__cell--genre">${genero}</div>
-                <div class="table__cell table__cell--year">${anio}</div>
-                <div class="table__cell table__cell--copies">${ejemplares}</div>
-                <div class="table__cell table__cell--disponibility">
-                    <span class="${claseDisponibilidad}">${disponibles}</span>
-                </div>
-            `;
-
-            container.appendChild(row);
-        });
-
-    } catch (error) {
-        console.error("Error al cargar la tabla de libros:", error);
-    }
+    alert("Devolución registrada correctamente.");
+    cargarTablaPrestamos();
+  } catch (error) {
+    alert(mensajeError(error));
+  }
 }
 
 // ==========================================
-// 2. CARGAR SELECTS DE AUTOR Y EDITORIAL
+// 3. FORMULARIO DE NUEVO PRÉSTAMO
 // ==========================================
 
-async function cargarDesplegablesFormulario(formId) {
-    const form = document.getElementById(formId);
-    if (!form) return;
-
-    const selectAutor = form.querySelector('#book-author-select, #book-edit-author-select');
-    const selectEditorial = form.querySelector('#book-editorial-select, #book-edit-editorial-select');
-
-    // Estado inicial visual
-    if (selectAutor) selectAutor.innerHTML = '<option value="" disabled selected>Cargando autores...</option>';
-    if (selectEditorial) selectEditorial.innerHTML = '<option value="" disabled selected>Cargando editoriales...</option>';
-
-    // Ejecutar ambas peticiones a la vez
-    const [resAutores, resEditoriales] = await Promise.allSettled([
-        selectAutor ? fetchConTimeout(API_AUTORES) : Promise.resolve(null),
-        selectEditorial ? fetchConTimeout(API_EDITORIALES) : Promise.resolve(null)
-    ]);
-
-    // Procesar Autores
-    if (selectAutor) {
-        if (resAutores.status === "fulfilled" && resAutores.value && resAutores.value.ok) {
-            try {
-                const autores = await resAutores.value.json();
-                if (autores.length === 0) {
-                    selectAutor.innerHTML = '<option value="" disabled selected>No hay autores registrados</option>';
-                } else {
-                    selectAutor.innerHTML = '<option value="" disabled selected>Seleccionar autor...</option>';
-                    autores.forEach(a => {
-                        selectAutor.innerHTML += `<option value="${a.id}">${a.nombre}</option>`;
-                    });
-                }
-            } catch (e) {
-                selectAutor.innerHTML = '<option value="" disabled selected>Error al procesar datos</option>';
-            }
-        } else {
-            console.error("Error al cargar autores:", resAutores.reason || resAutores.value?.statusText);
-            selectAutor.innerHTML = '<option value="" disabled selected>Error al cargar autores</option>';
-        }
-    }
-
-    // Procesar Editoriales
-    if (selectEditorial) {
-        if (resEditoriales.status === "fulfilled" && resEditoriales.value && resEditoriales.value.ok) {
-            try {
-                const editoriales = await resEditoriales.value.json();
-                if (editoriales.length === 0) {
-                    selectEditorial.innerHTML = '<option value="" disabled selected>No hay editoriales registradas</option>';
-                } else {
-                    selectEditorial.innerHTML = '<option value="" disabled selected>Seleccionar editorial...</option>';
-                    editoriales.forEach(e => {
-                        selectEditorial.innerHTML += `<option value="${e.id}">${e.nombre}</option>`;
-                    });
-                }
-            } catch (e) {
-                selectEditorial.innerHTML = '<option value="" disabled selected>Error al procesar datos</option>';
-            }
-        } else {
-            console.error("Error al cargar editoriales:", resEditoriales.reason || resEditoriales.value?.statusText);
-            selectEditorial.innerHTML = '<option value="" disabled selected>Error al cargar editoriales</option>';
-        }
-    }
+async function obtenerLista(url) {
+  const response = await fetchConTimeout(url);
+  if (!response.ok) throw new Error(await leerError(response));
+  return response.json();
 }
 
-// ==========================================
-// 3. CARGAR Y AUTOCOMPLETAR EDICIÓN
-// ==========================================
+function llenarSelect(
+  select,
+  resultado,
+  textoVacio,
+  textoSeleccion,
+  convertirAOpcion,
+) {
+  if (resultado.status !== "fulfilled") {
+    console.error("Error al cargar el desplegable:", resultado.reason);
+    select.innerHTML =
+      '<option value="" disabled selected>Error al cargar datos</option>';
+    return;
+  }
 
-async function cargarSelectLibrosEdicion() {
-    const select = document.getElementById('book-edit-select');
-    if (!select) return;
+  const opciones = resultado.value.map(convertirAOpcion).filter(Boolean);
+  if (opciones.length === 0) {
+    select.innerHTML = `<option value="" disabled selected>${textoVacio}</option>`;
+    return;
+  }
 
-    try {
-        select.innerHTML = '<option value="" disabled selected>Cargando libros...</option>';
-        const response = await fetchConTimeout(API_LIBROS);
-        if (!response.ok) throw new Error("No se pudieron cargar los libros");
-
-        librosCache = await response.json();
-        select.innerHTML = '<option value="" disabled selected>Seleccionar libro...</option>';
-
-        librosCache.forEach(libro => {
-            select.innerHTML += `<option value="${libro.id}">${libro.titulo} (${libro.isbn || 'Sin ISBN'})</option>`;
-        });
-    } catch (error) {
-        console.error('Error al obtener libros:', error);
-        select.innerHTML = '<option value="" disabled selected>Error al cargar libros</option>';
-    }
+  select.innerHTML = `<option value="" disabled selected>${textoSeleccion}</option>${opciones.join("")}`;
 }
 
-function autocompletarEdicion(idLibro) {
-    const libro = librosCache.find(l => String(l.id) === String(idLibro));
-    if (!libro) return;
+async function cargarSelectsPrestamo() {
+  const selectLibro = document.getElementById("loan-book");
+  const selectUsuario = document.getElementById("loan-user");
 
-    document.getElementById('book-edit-name').value = libro.titulo || '';
-    document.getElementById('book-edit-isbn').value = libro.isbn || '';
-    document.getElementById('book-edit-genre').value = libro.genero || '';
-    document.getElementById('book-edit-year').value = libro.anioPublicacion || libro.anio || '';
-    document.getElementById('book-edit-copies').value = libro.cantidadEjemplares || libro.ejemplares || '';
-    document.getElementById('book-edit-available').value = libro.cantidadDisponibles || libro.disponibles || '';
+  selectLibro.innerHTML =
+    '<option value="" disabled selected>Cargando libros...</option>';
+  selectUsuario.innerHTML =
+    '<option value="" disabled selected>Cargando usuarios...</option>';
 
-    const selectAutor = document.getElementById('book-edit-author-select');
-    if (selectAutor) selectAutor.value = libro.autor?.id || libro.autorId || '';
+  const [libros, usuarios] = await Promise.allSettled([
+    obtenerLista(API_LIBROS),
+    obtenerLista(API_USUARIOS),
+  ]);
 
-    const selectEditorial = document.getElementById('book-edit-editorial-select');
-    if (selectEditorial) selectEditorial.value = libro.editorial?.id || libro.editorialId || '';
+  llenarSelect(
+    selectLibro,
+    libros,
+    "No hay libros disponibles",
+    "Seleccionar libro...",
+    (libro) => {
+      if (!(libro.ejemplaresDisponibles > 0)) return null;
+      return `<option value="${libro.id}">${escaparHtml(libro.titulo)} — ${escaparHtml(libro.autor)}</option>`;
+    },
+  );
 
-    const submitBtn = document.querySelector('#book-edit-form button[type="submit"]');
-    if (submitBtn) submitBtn.disabled = false;
+  llenarSelect(
+    selectUsuario,
+    usuarios,
+    "No hay usuarios activos",
+    "Seleccionar usuario...",
+    (usuario) => {
+      const estado = (
+        usuario.estado ??
+        usuario.estatus ??
+        "activo"
+      ).toLowerCase();
+      if (ESTADOS_USUARIO_INACTIVO.includes(estado)) return null;
+
+      const nombre =
+        `${usuario.nombre ?? ""} ${usuario.apellidos ?? usuario.apellido ?? ""}`.trim();
+      return `<option value="${usuario.id}">${escaparHtml(nombre)}</option>`;
+    },
+  );
 }
 
-// ==========================================
-// 4. ENVÍO DE FORMULARIOS (POST Y PUT)
-// ==========================================
+function fechaLocalISO(diasDesdeHoy) {
+  const fecha = new Date();
+  fecha.setDate(fecha.getDate() + diasDesdeHoy);
+  const mes = String(fecha.getMonth() + 1).padStart(2, "0");
+  const dia = String(fecha.getDate()).padStart(2, "0");
+  return `${fecha.getFullYear()}-${mes}-${dia}`;
+}
 
-async function manejarSubmitCrear(e) {
-    e.preventDefault();
-    const form = e.target;
-    const submitBtn = form.querySelector('button[type="submit"]');
+function configurarFechaLimite() {
+  const inputFecha = document.getElementById("loan-date");
+  inputFecha.min = fechaLocalISO(1);
+  inputFecha.max = fechaLocalISO(21);
+}
 
-    const autorId = document.getElementById('book-author-select')?.value;
-    const editorialId = document.getElementById('book-editorial-select')?.value;
+async function buscarEjemplarDisponible(idLibro) {
+  const ejemplares = await obtenerLista(`${API_LIBROS}/${idLibro}/ejemplares`);
+  const disponible = ejemplares.find((ejemplar) => !ejemplar.prestado);
+  if (!disponible)
+    throw new Error("Ya no hay ejemplares disponibles de este libro.");
+  return disponible.id;
+}
+
+async function manejarSubmitPrestamo(e) {
+  e.preventDefault();
+  const form = e.target;
+  const submitBtn = form.querySelector('button[type="submit"]');
+
+  const idLibro = document.getElementById("loan-book").value;
+  const idUsuario = document.getElementById("loan-user").value;
+  const fechaLimite = document.getElementById("loan-date").value;
+  if (!idLibro || !idUsuario || !fechaLimite) return;
+
+  try {
+    if (submitBtn) submitBtn.disabled = true;
 
     const payload = {
-        titulo: document.getElementById('book-name').value.trim(),
-        isbn: document.getElementById('isbn-value').value.trim(),
-        genero: document.getElementById('genre-name').value.trim(),
-        autorId: Number(autorId),
-        editorialId: editorialId ? Number(editorialId) : null,
-        anioPublicacion: Number(document.getElementById('year-value').value),
-        cantidadEjemplares: Number(document.getElementById('copies-value').value),
-        cantidadDisponibles: Number(document.getElementById('available-books-value').value)
+      idUsuario: Number(idUsuario),
+      idEjemplar: await buscarEjemplarDisponible(idLibro),
+      fechaDevolucionAsignada: `${fechaLimite}T23:59:59`,
     };
 
-    try {
-        if (submitBtn) submitBtn.disabled = true;
+    const response = await fetchConTimeout(API_PRESTAMOS, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    if (!response.ok) throw new Error(await leerError(response));
 
-        const response = await fetch(API_LIBROS, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
-        });
+    const prestamo = await response.json();
+    alert(
+      `Préstamo de "${prestamo.tituloLibro}" registrado para ${prestamo.nombreUsuario}.`,
+    );
 
-        if (!response.ok) throw new Error(await procesarErrorBackend(response, payload.titulo));
-
-        const data = await response.json();
-        alert(`Libro "${data.titulo || payload.titulo}" guardado exitosamente.`);
-        cerrarDialogYResetear(form);
-        
-        // Recargamos la tabla automáticamente tras crear
-        cargarYRenderizarTablaLibros();
-
-    } catch (error) {
-        alert(error.message);
-    } finally {
-        if (submitBtn) submitBtn.disabled = false;
-    }
-}
-
-async function manejarSubmitEditar(e) {
-    e.preventDefault();
-    const form = e.target;
-    const select = document.getElementById('book-edit-select');
-    const submitBtn = form.querySelector('button[type="submit"]');
-
-    const idLibro = select?.value;
-    if (!idLibro) return;
-
-    const autorId = document.getElementById('book-edit-author-select')?.value;
-    const editorialId = document.getElementById('book-edit-editorial-select')?.value;
-
-    const payload = {
-        titulo: document.getElementById('book-edit-name').value.trim(),
-        isbn: document.getElementById('book-edit-isbn').value.trim(),
-        genero: document.getElementById('book-edit-genre').value.trim(),
-        autorId: Number(autorId),
-        editorialId: editorialId ? Number(editorialId) : null,
-        anioPublicacion: Number(document.getElementById('book-edit-year').value),
-        cantidadEjemplares: Number(document.getElementById('book-edit-copies').value),
-        cantidadDisponibles: Number(document.getElementById('book-edit-available').value)
-    };
-
-    try {
-        if (submitBtn) submitBtn.disabled = true;
-
-        const response = await fetch(`${API_LIBROS}/${idLibro}`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
-        });
-
-        if (!response.ok) throw new Error(await procesarErrorBackend(response, payload.titulo));
-
-        const data = await response.json();
-        alert(`Libro "${data.titulo || payload.titulo}" actualizado exitosamente.`);
-        cerrarDialogYResetear(form);
-
-        // Recargamos la tabla automáticamente tras editar
-        cargarYRenderizarTablaLibros();
-
-    } catch (error) {
-        alert(error.message);
-    } finally {
-        if (submitBtn) submitBtn.disabled = false;
-    }
-}
-
-// Auxiliares
-async function procesarErrorBackend(response, titulo) {
-    const textoError = await response.text();
-    try {
-        const jsonError = JSON.parse(textoError);
-        if (jsonError.errors && Array.isArray(jsonError.errors)) return jsonError.errors.join(", ");
-        return jsonError.message || `Error ${response.status}: Operación fallida.`;
-    } catch {
-        return textoError || `Error ${response.status} en la API.`;
-    }
-}
-
-function cerrarDialogYResetear(form) {
-    const dialog = form.closest('dialog');
-    if (dialog) dialog.close();
+    form.closest("dialog")?.close();
     form.reset();
+    cargarTablaPrestamos();
+  } catch (error) {
+    alert(mensajeError(error));
+  } finally {
+    if (submitBtn) submitBtn.disabled = false;
+  }
 }
 
 // Listeners globales
-document.addEventListener('DOMContentLoaded', () => {
-    // Cargar la tabla automáticamente al iniciar el dashboard
-    cargarYRenderizarTablaLibros();
+document.addEventListener("DOMContentLoaded", () => {
+  cargarTablaPrestamos();
 
-    const addForm = document.getElementById('book-form');
-    if (addForm) addForm.addEventListener('submit', manejarSubmitCrear);
+  const form = document.getElementById("loan-form");
+  if (form) form.addEventListener("submit", manejarSubmitPrestamo);
 
-    const editForm = document.getElementById('book-edit-form');
-    if (editForm) editForm.addEventListener('submit', manejarSubmitEditar);
-
-    const editSelect = document.getElementById('book-edit-select');
-    if (editSelect) {
-        editSelect.addEventListener('change', (e) => autocompletarEdicion(e.target.value));
-    }
-
-    // Escuchadores de apertura de modales
-    document.querySelectorAll('[data-open="book-add-dialog"]').forEach(btn => {
-        btn.addEventListener('click', () => cargarDesplegablesFormulario('book-form'));
+  document.querySelectorAll('[data-open="loan-add-dialog"]').forEach((btn) => {
+    btn.addEventListener("click", () => {
+      cargarSelectsPrestamo();
+      configurarFechaLimite();
     });
-
-    document.querySelectorAll('[data-open="book-edit-dialog"]').forEach(btn => {
-        btn.addEventListener('click', () => {
-            cargarDesplegablesFormulario('book-edit-form');
-            cargarSelectLibrosEdicion();
-        });
-    });
+  });
 });
