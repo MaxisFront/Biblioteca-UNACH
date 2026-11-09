@@ -1,27 +1,15 @@
 import { CONFIG } from "../js/config.js";
+import { escaparHtml, fetchConTimeout, leerError, mensajeError } from "../js/utils.js";
 
 const API_LIBROS = `${CONFIG.API_URL}/libros`;
 const API_AUTORES = `${CONFIG.API_URL}/autores`;
 const API_EDITORIALES = `${CONFIG.API_URL}/editoriales`;
+const API_GENEROS = `${CONFIG.API_URL}/generos`;
 
 let librosCache = [];
 
-// Helper con timeout para evitar peticiones infinitas
-async function fetchConTimeout(resource, options = {}, timeout = 5000) {
-    const controller = new AbortController();
-    const id = setTimeout(() => controller.abort(), timeout);
-    try {
-        const response = await fetch(resource, { ...options, signal: controller.signal });
-        clearTimeout(id);
-        return response;
-    } catch (error) {
-        clearTimeout(id);
-        throw error;
-    }
-}
-
 // ==========================================
-// 1. CARGAR Y RENDERIZAR TABLA DE LIBROS (Adaptado a tu DTO de Java)
+// 1. CARGAR Y RENDERIZAR TABLA DE LIBROS
 // ==========================================
 
 async function cargarYRenderizarTablaLibros() {
@@ -36,7 +24,12 @@ async function cargarYRenderizarTablaLibros() {
         if (!response.ok) throw new Error("Error al obtener los libros");
 
         const libros = await response.json();
-        librosCache = libros; // Actualizamos la caché general
+        librosCache = libros;
+
+        const descripcion = document.querySelector(".header__description");
+        if (descripcion) {
+            descripcion.textContent = libros.length === 1 ? "1 libro registrado" : `${libros.length} libros registrados`;
+        }
 
         // Limpiamos el contenedor manteniendo la cabecera
         container.innerHTML = "";
@@ -53,17 +46,14 @@ async function cargarYRenderizarTablaLibros() {
         }
 
         libros.forEach(libro => {
-            // Mapeo exacto basado en tu LibroResponseDTO de Spring Boot:
             const titulo = libro.titulo || "Sin título";
-            const autor = libro.autor || "Desconocido"; // Ya viene como String desde Java
+            const autor = libro.autor || "Desconocido";
             const genero = libro.genero || "Sin género";
-            
-            // Si tu DTO no tiene año, se evalúa de forma segura
-            const anio = libro.anioPublicacion || libro.anio || "N/A"; 
-            
-            // Cantidades provistas por los count() de tus repositorios en Java
-            const ejemplares = libro.cantidadEjemplares ?? 0;
-            const disponibles = libro.cantidadDisponibles ?? 0;
+            const anio = libro.anioPublicacion || "N/A";
+
+            // Ambos valores se calculan en el backend contando filas de Ejemplar
+            const ejemplares = libro.totalEjemplares ?? 0;
+            const disponibles = libro.ejemplaresDisponibles ?? 0;
 
             const claseDisponibilidad = disponibles > 0 ? "disponibility--active" : "disponibility--unavailable";
 
@@ -71,9 +61,9 @@ async function cargarYRenderizarTablaLibros() {
             row.className = "table__row";
 
             row.innerHTML = `
-                <div class="table__cell table__cell--title">${titulo}</div>
-                <div class="table__cell table__cell--author">${autor}</div>
-                <div class="table__cell table__cell--genre">${genero}</div>
+                <div class="table__cell table__cell--title">${escaparHtml(titulo)}</div>
+                <div class="table__cell table__cell--author">${escaparHtml(autor)}</div>
+                <div class="table__cell table__cell--genre">${escaparHtml(genero)}</div>
                 <div class="table__cell table__cell--year">${anio}</div>
                 <div class="table__cell table__cell--copies">${ejemplares}</div>
                 <div class="table__cell table__cell--disponibility">
@@ -90,7 +80,7 @@ async function cargarYRenderizarTablaLibros() {
 }
 
 // ==========================================
-// 2. CARGAR SELECTS DE AUTOR Y EDITORIAL
+// 2. CARGAR SELECTS DE AUTOR Y EDITORIAL, Y SUGERENCIAS DE GÉNERO
 // ==========================================
 
 async function cargarDesplegablesFormulario(formId) {
@@ -120,7 +110,7 @@ async function cargarDesplegablesFormulario(formId) {
                 } else {
                     selectAutor.innerHTML = '<option value="" disabled selected>Seleccionar autor...</option>';
                     autores.forEach(a => {
-                        selectAutor.innerHTML += `<option value="${a.id}">${a.nombre}</option>`;
+                        selectAutor.innerHTML += `<option value="${a.id}">${escaparHtml(a.nombre)}</option>`;
                     });
                 }
             } catch (e) {
@@ -142,7 +132,7 @@ async function cargarDesplegablesFormulario(formId) {
                 } else {
                     selectEditorial.innerHTML = '<option value="" disabled selected>Seleccionar editorial...</option>';
                     editoriales.forEach(e => {
-                        selectEditorial.innerHTML += `<option value="${e.id}">${e.nombre}</option>`;
+                        selectEditorial.innerHTML += `<option value="${e.id}">${escaparHtml(e.nombre)}</option>`;
                     });
                 }
             } catch (e) {
@@ -153,6 +143,40 @@ async function cargarDesplegablesFormulario(formId) {
             selectEditorial.innerHTML = '<option value="" disabled selected>Error al cargar editoriales</option>';
         }
     }
+}
+
+async function cargarSugerenciasGenero() {
+    const lista = document.getElementById('genre-options');
+    if (!lista) return;
+
+    try {
+        const response = await fetchConTimeout(API_GENEROS);
+        if (!response.ok) throw new Error("No se pudieron cargar los géneros");
+
+        const generos = await response.json();
+        lista.innerHTML = generos.map(g => `<option value="${escaparHtml(g.nombre)}"></option>`).join("");
+    } catch (error) {
+        console.error("Error al cargar géneros:", error);
+    }
+}
+
+// El género se escribe como texto libre: si ya existe se reutiliza, si no se crea
+async function obtenerOCrearGenero(nombre) {
+    const response = await fetchConTimeout(API_GENEROS);
+    if (!response.ok) throw new Error(await leerError(response));
+
+    const generos = await response.json();
+    const existente = generos.find(g => g.nombre.toLowerCase() === nombre.toLowerCase());
+    if (existente) return existente.id;
+
+    const creado = await fetchConTimeout(API_GENEROS, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nombre })
+    });
+    if (!creado.ok) throw new Error(await leerError(creado));
+
+    return (await creado.json()).id;
 }
 
 // ==========================================
@@ -172,12 +196,19 @@ async function cargarSelectLibrosEdicion() {
         select.innerHTML = '<option value="" disabled selected>Seleccionar libro...</option>';
 
         librosCache.forEach(libro => {
-            select.innerHTML += `<option value="${libro.id}">${libro.titulo} (${libro.isbn || 'Sin ISBN'})</option>`;
+            select.innerHTML += `<option value="${libro.id}">${escaparHtml(libro.titulo)} (${escaparHtml(libro.isbn || 'Sin ISBN')})</option>`;
         });
     } catch (error) {
         console.error('Error al obtener libros:', error);
         select.innerHTML = '<option value="" disabled selected>Error al cargar libros</option>';
     }
+}
+
+// La respuesta trae autor y editorial como nombre, así que se selecciona la opción con ese texto
+function seleccionarPorTexto(select, texto) {
+    if (!select) return;
+    const opcion = Array.from(select.options).find(o => o.textContent === texto);
+    select.value = opcion ? opcion.value : '';
 }
 
 function autocompletarEdicion(idLibro) {
@@ -187,15 +218,11 @@ function autocompletarEdicion(idLibro) {
     document.getElementById('book-edit-name').value = libro.titulo || '';
     document.getElementById('book-edit-isbn').value = libro.isbn || '';
     document.getElementById('book-edit-genre').value = libro.genero || '';
-    document.getElementById('book-edit-year').value = libro.anioPublicacion || libro.anio || '';
-    document.getElementById('book-edit-copies').value = libro.cantidadEjemplares || libro.ejemplares || '';
-    document.getElementById('book-edit-available').value = libro.cantidadDisponibles || libro.disponibles || '';
+    document.getElementById('book-edit-year').value = libro.anioPublicacion || '';
+    document.getElementById('book-edit-copies').value = libro.totalEjemplares ?? 0;
 
-    const selectAutor = document.getElementById('book-edit-author-select');
-    if (selectAutor) selectAutor.value = libro.autor?.id || libro.autorId || '';
-
-    const selectEditorial = document.getElementById('book-edit-editorial-select');
-    if (selectEditorial) selectEditorial.value = libro.editorial?.id || libro.editorialId || '';
+    seleccionarPorTexto(document.getElementById('book-edit-author-select'), libro.autor);
+    seleccionarPorTexto(document.getElementById('book-edit-editorial-select'), libro.editorial);
 
     const submitBtn = document.querySelector('#book-edit-form button[type="submit"]');
     if (submitBtn) submitBtn.disabled = false;
@@ -212,38 +239,49 @@ async function manejarSubmitCrear(e) {
 
     const autorId = document.getElementById('book-author-select')?.value;
     const editorialId = document.getElementById('book-editorial-select')?.value;
-
-    const payload = {
-        titulo: document.getElementById('book-name').value.trim(),
-        isbn: document.getElementById('isbn-value').value.trim(),
-        genero: document.getElementById('genre-name').value.trim(),
-        autorId: Number(autorId),
-        editorialId: editorialId ? Number(editorialId) : null,
-        anioPublicacion: Number(document.getElementById('year-value').value),
-        cantidadEjemplares: Number(document.getElementById('copies-value').value),
-        cantidadDisponibles: Number(document.getElementById('available-books-value').value)
-    };
+    const cantidadEjemplares = Number(document.getElementById('copies-value').value);
+    const titulo = document.getElementById('book-name').value.trim();
 
     try {
         if (submitBtn) submitBtn.disabled = true;
 
-        const response = await fetch(API_LIBROS, {
+        const payload = {
+            titulo,
+            isbn: document.getElementById('isbn-value').value.trim(),
+            anioPublicacion: Number(document.getElementById('year-value').value),
+            idAutor: Number(autorId),
+            idGenero: await obtenerOCrearGenero(document.getElementById('genre-name').value.trim()),
+            idEditorial: editorialId ? Number(editorialId) : null
+        };
+
+        const response = await fetchConTimeout(API_LIBROS, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
         });
+        if (!response.ok) throw new Error(await leerError(response));
 
-        if (!response.ok) throw new Error(await procesarErrorBackend(response, payload.titulo));
+        const libro = await response.json();
 
-        const data = await response.json();
-        alert(`Libro "${data.titulo || payload.titulo}" guardado exitosamente.`);
+        // Cada ejemplar es una fila en la tabla Ejemplar; la disponibilidad se calcula con los préstamos
+        const respuestaEjemplares = await fetchConTimeout(`${API_LIBROS}/${libro.id}/ejemplares`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ cantidad: cantidadEjemplares })
+        });
+
+        if (!respuestaEjemplares.ok) {
+            const motivo = await leerError(respuestaEjemplares);
+            alert(`El libro "${libro.titulo}" se guardó, pero no se pudieron crear sus ejemplares: ${motivo}`);
+        } else {
+            alert(`Libro "${libro.titulo}" guardado exitosamente con ${cantidadEjemplares} ejemplar(es).`);
+        }
+
         cerrarDialogYResetear(form);
-        
-        // Recargamos la tabla automáticamente tras crear
         cargarYRenderizarTablaLibros();
 
     } catch (error) {
-        alert(error.message);
+        alert(mensajeError(error));
     } finally {
         if (submitBtn) submitBtn.disabled = false;
     }
@@ -261,54 +299,39 @@ async function manejarSubmitEditar(e) {
     const autorId = document.getElementById('book-edit-author-select')?.value;
     const editorialId = document.getElementById('book-edit-editorial-select')?.value;
 
-    const payload = {
-        titulo: document.getElementById('book-edit-name').value.trim(),
-        isbn: document.getElementById('book-edit-isbn').value.trim(),
-        genero: document.getElementById('book-edit-genre').value.trim(),
-        autorId: Number(autorId),
-        editorialId: editorialId ? Number(editorialId) : null,
-        anioPublicacion: Number(document.getElementById('book-edit-year').value),
-        cantidadEjemplares: Number(document.getElementById('book-edit-copies').value),
-        cantidadDisponibles: Number(document.getElementById('book-edit-available').value)
-    };
-
     try {
         if (submitBtn) submitBtn.disabled = true;
 
-        const response = await fetch(`${API_LIBROS}/${idLibro}`, {
+        const payload = {
+            titulo: document.getElementById('book-edit-name').value.trim(),
+            isbn: document.getElementById('book-edit-isbn').value.trim(),
+            anioPublicacion: Number(document.getElementById('book-edit-year').value),
+            idAutor: Number(autorId),
+            idGenero: await obtenerOCrearGenero(document.getElementById('book-edit-genre').value.trim()),
+            idEditorial: editorialId ? Number(editorialId) : null
+        };
+
+        const response = await fetchConTimeout(`${API_LIBROS}/${idLibro}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
         });
-
-        if (!response.ok) throw new Error(await procesarErrorBackend(response, payload.titulo));
+        if (!response.ok) throw new Error(await leerError(response));
 
         const data = await response.json();
         alert(`Libro "${data.titulo || payload.titulo}" actualizado exitosamente.`);
         cerrarDialogYResetear(form);
 
-        // Recargamos la tabla automáticamente tras editar
         cargarYRenderizarTablaLibros();
 
     } catch (error) {
-        alert(error.message);
+        alert(mensajeError(error));
     } finally {
         if (submitBtn) submitBtn.disabled = false;
     }
 }
 
 // Auxiliares
-async function procesarErrorBackend(response, titulo) {
-    const textoError = await response.text();
-    try {
-        const jsonError = JSON.parse(textoError);
-        if (jsonError.errors && Array.isArray(jsonError.errors)) return jsonError.errors.join(", ");
-        return jsonError.message || `Error ${response.status}: Operación fallida.`;
-    } catch {
-        return textoError || `Error ${response.status} en la API.`;
-    }
-}
-
 function cerrarDialogYResetear(form) {
     const dialog = form.closest('dialog');
     if (dialog) dialog.close();
@@ -317,7 +340,7 @@ function cerrarDialogYResetear(form) {
 
 // Listeners globales
 document.addEventListener('DOMContentLoaded', () => {
-    // Cargar la tabla automáticamente al iniciar el dashboard
+    // Cargar la tabla automáticamente al iniciar
     cargarYRenderizarTablaLibros();
 
     const addForm = document.getElementById('book-form');
@@ -333,13 +356,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Escuchadores de apertura de modales
     document.querySelectorAll('[data-open="book-add-dialog"]').forEach(btn => {
-        btn.addEventListener('click', () => cargarDesplegablesFormulario('book-form'));
+        btn.addEventListener('click', () => {
+            cargarDesplegablesFormulario('book-form');
+            cargarSugerenciasGenero();
+        });
     });
 
     document.querySelectorAll('[data-open="book-edit-dialog"]').forEach(btn => {
         btn.addEventListener('click', () => {
             cargarDesplegablesFormulario('book-edit-form');
             cargarSelectLibrosEdicion();
+            cargarSugerenciasGenero();
         });
     });
 });
